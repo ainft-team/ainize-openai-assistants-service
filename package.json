@@ -15,6 +15,10 @@
   "bugs": {
     "url": "https://github.com/ainft-team/ainize-openai-assistans-service/issues"
   },
+  "engines" : {
+    "node": "18",
+    "npm": "8"
+  },
   "homepage": "https://github.com/ainft-team/ainize-openai-assistans-service#readme",
   "dependencies": {
     "express": "^4.18.2"
