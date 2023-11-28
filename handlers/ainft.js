@@ -21,7 +21,7 @@ class AinftHandler {
 
   static createAssistants = (req, res, next) => {
     try {
-      res.status(200).json(Utils.serializeMessage('ok', { hello: 'world' }));
+      res.status(201).json(Utils.serializeMessage('ok', { hello: 'world' }));
     } catch (error) {
       throw ErrorUtil.setCustomError(500, error);
     }
@@ -61,7 +61,7 @@ class AinftHandler {
 
   static createThreads = (req, res, next) => {
     try {
-      res.status(200).json(Utils.serializeMessage('ok', { hello: 'world' }));
+      res.status(201).json(Utils.serializeMessage('ok', { hello: 'world' }));
     } catch (error) {
       throw ErrorUtil.setCustomError(500, error);
     }
@@ -93,7 +93,7 @@ class AinftHandler {
 
   static createMessages = (req, res, next) => {
     try {
-      res.status(200).json(Utils.serializeMessage('ok', { hello: 'world' }));
+      res.status(201).json(Utils.serializeMessage('ok', { hello: 'world' }));
     } catch (error) {
       throw ErrorUtil.setCustomError(500, error);
     }
