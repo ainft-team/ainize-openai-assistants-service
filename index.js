@@ -1,6 +1,7 @@
 const express = require('express');
 
 const {
+  AinftHandler,
   ErrorHandler,
   ErrorUtil
 } = require('./handlers');
@@ -11,6 +12,8 @@ const port = process.env.PORT || 3000;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.get('/test', AinftHandler.createAssistants);
 
 app.get('/health', (req, res, next) => {
   try {
