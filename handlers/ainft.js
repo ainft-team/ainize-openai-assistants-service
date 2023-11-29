@@ -20,7 +20,7 @@ class AinftHandler {
     }
   }
 
-  static createAssistants = (req, res, next) => {
+  static createAssistant = (req, res, next) => {
     try {
       res.status(201).json(Utils.serializeMessage('ok', { hello: 'world' }));
     } catch (error) {
@@ -28,7 +28,7 @@ class AinftHandler {
     }
   }
 
-  static updateAssistants = (req, res, next) => {
+  static updateAssistant = (req, res, next) => {
     try {
       res.status(200).json(Utils.serializeMessage('ok', { hello: 'world' }));
     } catch (error) {
@@ -36,7 +36,7 @@ class AinftHandler {
     }
   }
 
-  static deleteAssistants = (req, res, next) => {
+  static deleteAssistant = (req, res, next) => {
     try {
       res.status(200).json(Utils.serializeMessage('ok', { hello: 'world' }));
     } catch (error) {
@@ -44,7 +44,7 @@ class AinftHandler {
     }
   }
 
-  static getAssistants = (req, res, next) => {
+  static getAssistant = (req, res, next) => {
     try {
       res.status(200).json(Utils.serializeMessage('ok', { hello: 'world' }));
     } catch (error) {
@@ -60,7 +60,7 @@ class AinftHandler {
     }
   }
 
-  static createThreads = (req, res, next) => {
+  static createThread = (req, res, next) => {
     try {
       res.status(201).json(Utils.serializeMessage('ok', { hello: 'world' }));
     } catch (error) {
@@ -68,7 +68,7 @@ class AinftHandler {
     }
   }
 
-  static deleteThreads = (req, res, next) => {
+  static deleteThread = (req, res, next) => {
     try {
       res.status(200).json(Utils.serializeMessage('ok', { hello: 'world' }));
     } catch (error) {
@@ -76,7 +76,7 @@ class AinftHandler {
     }
   }
 
-  static getThreads = (req, res, next) => {
+  static getThread = (req, res, next) => {
     try {
       res.status(200).json(Utils.serializeMessage('ok', { hello: 'world' }));
     } catch (error) {
@@ -92,7 +92,7 @@ class AinftHandler {
     }
   }
 
-  static createMessages = (req, res, next) => {
+  static createMessage = (req, res, next) => {
     try {
       res.status(201).json(Utils.serializeMessage('ok', { hello: 'world' }));
     } catch (error) {
@@ -100,7 +100,7 @@ class AinftHandler {
     }
   }
 
-  static getMessages = (req, res, next) => {
+  static getMessage = (req, res, next) => {
     try {
       res.status(200).json(Utils.serializeMessage('ok', { hello: 'world' }));
     } catch (error) {
