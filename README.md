@@ -1,4 +1,5 @@
-# ainize-openai-assistans-service
+# ainize-openai-assistants-service
+A Wrapper Ainize Container for OpenAI Assistant API
 
 ## Prerequisite
 
