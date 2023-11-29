@@ -2,6 +2,7 @@ const { ErrorUtil } = require('./error');
 const { Utils } = require('./utils');
 
 // TODO(all): Fill in the handlers
+// NOTE(minsu): Some Handler can be separated as its purpose in the near future
 class AinftHandler {
   static chargeAinizeCredit = (req, res, next) => {
     try {

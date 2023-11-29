@@ -1,5 +1,5 @@
 {
-  "name": "ainize-openai-assistans-service",
+  "name": "ainize-openai-assistants-service",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,18 +8,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ainft-team/ainize-openai-assistans-service.git"
+    "url": "git+https://github.com/ainft-team/ainize-openai-assistants-service.git"
   },
   "author": "ainft-team",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ainft-team/ainize-openai-assistans-service/issues"
+    "url": "https://github.com/ainft-team/ainize-openai-assistants-service/issues"
   },
   "engines" : {
     "node": "18",
     "npm": "8"
   },
-  "homepage": "https://github.com/ainft-team/ainize-openai-assistans-service#readme",
+  "homepage": "https://github.com/ainft-team/ainize-openai-assistants-service#readme",
   "dependencies": {
     "express": "^4.18.2"
   }
