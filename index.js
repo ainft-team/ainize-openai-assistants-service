@@ -13,19 +13,19 @@ const port = process.env.PORT || 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.post('/assistants/create', AinftHandler.createAssistants);
-app.post('/assistants/get', AinftHandler.getAssistants);
-app.post('/threads/create', AinftHandler.createThreads);
-app.post('/threads/get', AinftHandler.getThreads);
-app.post('/messages/create', AinftHandler.createMessages);
-app.post('/messages/get', AinftHandler.getMessages);
+app.post('/assistants/create', AinftHandler.createAssistant);
+app.post('/assistants/get', AinftHandler.getAssistant);
+app.post('/threads/create', AinftHandler.createThread);
+app.post('/threads/get', AinftHandler.getThread);
+app.post('/messages/create', AinftHandler.createMessage);
+app.post('/messages/get', AinftHandler.getMessage);
 app.post('/credit/charge', AinftHandler.chargeAinizeCredit);
 app.post('/credit/get', AinftHandler.getAinizeCredit);
 
-app.put('/assistants/update', AinftHandler.updateAssistants);
+app.put('/assistants/update', AinftHandler.updateAssistant);
 
-app.delete('/assistants/delete', AinftHandler.deleteAssistants);
-app.delete('/threads/delete', AinftHandler.deleteThreads);
+app.delete('/assistants/delete', AinftHandler.deleteAssistant);
+app.delete('/threads/delete', AinftHandler.deleteThread);
 
 app.get('/assistants/list', AinftHandler.listAssistants);
 app.get('/threads/list', AinftHandler.listThreads);
