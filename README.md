@@ -15,3 +15,14 @@ $ yarn install
 ```bsh
 $ node index.js
 ```
+
+## Docker
+### Build docker example
+```bsh
+$ docker build -t ainize-openai-assistants-service .
+```
+
+### Run docker example
+```bsh
+$ docker run -it -p 8080:3000 ainize-openai-assistants-service
+```
