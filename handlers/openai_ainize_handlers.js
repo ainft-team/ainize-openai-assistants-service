@@ -3,7 +3,24 @@ const { Utils } = require('./utils');
 
 // TODO(all): Fill in the handlers
 // NOTE(minsu): Some Handler can be separated as its purpose in the near future
-class AinftHandler {
+class OpenaiAinizeHandler {
+  static service = (req, res, next) => {
+    try {
+      res.status(200).json(Utils.serializeMessage('ok', { hello: 'world' }));
+    } catch (error) {
+      throw ErrorUtil.setCustomError(500, error);
+    }
+  }
+
+  static deposit = (req, res, next) => {
+    try {
+      res.status(200).json(Utils.serializeMessage('ok', { hello: 'world' }));
+    } catch (error) {
+      throw ErrorUtil.setCustomError(500, error);
+    }
+  }
+
+  // NOTE(minsu): below will be deprecated soon.
   static chargeAinizeCredit = (req, res, next) => {
     try {
       res.status(200).json(Utils.serializeMessage('ok', { hello: 'world' }));
@@ -110,5 +127,5 @@ class AinftHandler {
 }
 
 module.exports = {
-  AinftHandler
+  OpenaiAinizeHandler
 };
