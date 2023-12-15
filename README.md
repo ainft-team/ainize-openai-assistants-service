@@ -8,12 +8,21 @@ Please use **YARN** instead of npm.
 ```bsh
 $ yarn install
 ```
----
+
+## ENVs
+```
+OPENAI_API_KEY=..
+```
 
 ## How to run the server
 ### Run on terminal
 ```bsh
 $ node index.js
+```
+
+### Simply check the server status out on
+```
+http://localhost:3000/health
 ```
 
 ## Docker
