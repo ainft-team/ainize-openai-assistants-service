@@ -1,3 +1,5 @@
+// NOTE(minsu): derived it from https://github.com/ainize-team/ainize-tutorial-service/blob/main/src/functions/service.ts
+
 const axios = require('axios');
 
 const { OPENAI_API_KEY } = require('../env');
@@ -22,7 +24,7 @@ const llmService = async (prompt) => {
       },
     },
   );
-  console.log(response.data.choices[0].text)
+  console.log(response.data.choices[0].text);
   return response.data.choices[0].text;
 }
 
