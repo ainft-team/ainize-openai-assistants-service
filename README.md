@@ -8,7 +8,11 @@ Please use **YARN** instead of npm.
 ```bsh
 $ yarn install
 ```
----
+
+## ENV
+```bsh
+OPENAI_API_KEY=..
+```
 
 ## How to run the server
 ### Run on terminal
