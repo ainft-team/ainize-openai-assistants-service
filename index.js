@@ -2,6 +2,7 @@ const express = require('express');
 
 const {
   OpenaiAinizeHandler,
+  Middleware,
   ErrorHandler,
   ErrorUtil
 } = require('./handlers');
@@ -13,7 +14,7 @@ const port = process.env.PORT || 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.post('/service', OpenaiAinizeHandler.service);
+app.post('/service', Middleware.classifyJobType, OpenaiAinizeHandler.service);
 app.post('/deposit', OpenaiAinizeHandler.deposit);
 
 // NOTE(minsu): needs discussion about the structure below
