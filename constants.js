@@ -11,10 +11,10 @@ const OPENAI_ENDPOINT_PATH = Object.freeze({
 });
 
 const HTTP_REQUEST_METHODS = Object.freeze({
-  GET: 'get',
-  POST: 'post',
-  DELETE: 'delete',
-  PUT: 'put'
+  GET: 'GET',
+  POST: 'POST',
+  DELETE: 'DELETE',
+  PUT: 'PUT'
 });
 
 module.exports = {

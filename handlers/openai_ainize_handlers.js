@@ -1,10 +1,10 @@
-const { getRequestMaterialsFromJobType } = require('../data');
+const { getRequestMaterialsFromJobType, callOpenai } = require('../data');
 const { ErrorUtil } = require('./error');
 const { Utils } = require('./utils');
 
 // TODO(all): Fill in the handlers.
 class OpenaiAinizeHandler {
-  static service = (req, res, next) => {
+  static service = async (req, res, next) => {
     try {
       const { jobType } = res.locals;
       const {
@@ -14,7 +14,13 @@ class OpenaiAinizeHandler {
       } = getRequestMaterialsFromJobType(jobType);
       const requestUrl = getRequestUrlFunction();
       const requestBody = getRequestBodyFunction({});
-      res.status(200).json(Utils.serializeMessage('ok', { requestMethod, requestUrl, requestBody }));
+      const response = await callOpenai({
+        method: requestMethod,
+        url: requestUrl,
+        body: JSON.stringify(requestBody)
+      });
+
+      res.status(200).json(Utils.serializeMessage('ok', response.data));
     } catch (error) {
       throw ErrorUtil.setCustomError(500, error);
     }
