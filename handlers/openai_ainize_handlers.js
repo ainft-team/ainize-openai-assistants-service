@@ -1,12 +1,15 @@
+const { OpenaiRequestBodyBuilder } = require('../data')
 const { ErrorUtil } = require('./error');
 const { Utils } = require('./utils');
 
-// TODO(all): Fill in the handlers
-// NOTE(minsu): Some Handler can be separated as its purpose in the near future
+// TODO(all): Fill in the handlers.
 class OpenaiAinizeHandler {
   static service = (req, res, next) => {
     try {
-      res.status(200).json(Utils.serializeMessage('ok', { hello: 'world' }));
+      const { jobType } = res.locals;
+      const getRequestBody = OpenaiRequestBodyBuilder.getRequestBodyFunction(jobType);
+      const requestBody = getRequestBody({});
+      res.status(200).json(Utils.serializeMessage('ok', { hello: requestBody }));
     } catch (error) {
       throw ErrorUtil.setCustomError(500, error);
     }
