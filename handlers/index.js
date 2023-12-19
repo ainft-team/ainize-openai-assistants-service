@@ -1,8 +1,10 @@
-const { AinftHandler } = require('./ainft');
+const { OpenaiAinizeHandler } = require('./openai_ainize_handlers');
+const { Middleware } = require('./middleware');
 const { ErrorHandler, ErrorUtil } = require('./error');
 
 module.exports = {
-  AinftHandler,
+  OpenaiAinizeHandler,
+  Middleware,
   ErrorHandler,
   ErrorUtil
 };

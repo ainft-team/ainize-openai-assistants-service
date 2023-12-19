@@ -1,9 +1,40 @@
+const { getRequestMaterialsFromJobType, callOpenai } = require('../data');
 const { ErrorUtil } = require('./error');
 const { Utils } = require('./utils');
 
-// TODO(all): Fill in the handlers
-// NOTE(minsu): Some Handler can be separated as its purpose in the near future
-class AinftHandler {
+// TODO(all): Fill in the handlers.
+class OpenaiAinizeHandler {
+  static service = async (req, res, next) => {
+    try {
+      const { jobType } = res.locals;
+      const {
+        requestMethod,
+        getRequestUrlFunction,
+        getRequestBodyFunction
+      } = getRequestMaterialsFromJobType(jobType);
+      const requestUrl = getRequestUrlFunction({ });
+      const requestBody = getRequestBodyFunction({ });
+      const response = await callOpenai({
+        method: requestMethod,
+        url: requestUrl,
+        body: JSON.stringify(requestBody)
+      });
+
+      res.status(200).json(Utils.serializeMessage(`${jobType} ok`, response.data));
+    } catch (error) {
+      throw ErrorUtil.setCustomError(500, error);
+    }
+  }
+
+  static deposit = (req, res, next) => {
+    try {
+      res.status(200).json(Utils.serializeMessage('ok', { hello: 'world' }));
+    } catch (error) {
+      throw ErrorUtil.setCustomError(500, error);
+    }
+  }
+
+  // NOTE(minsu): below will be deprecated soon.
   static chargeAinizeCredit = (req, res, next) => {
     try {
       res.status(200).json(Utils.serializeMessage('ok', { hello: 'world' }));
@@ -15,14 +46,6 @@ class AinftHandler {
   static getAinizeCredit = (req, res, next) => {
     try {
       res.status(200).json(Utils.serializeMessage('ok', { hello: 'world' }));
-    } catch (error) {
-      throw ErrorUtil.setCustomError(500, error);
-    }
-  }
-
-  static createAssistant = (req, res, next) => {
-    try {
-      res.status(201).json(Utils.serializeMessage('ok', { hello: 'world' }));
     } catch (error) {
       throw ErrorUtil.setCustomError(500, error);
     }
@@ -110,5 +133,5 @@ class AinftHandler {
 }
 
 module.exports = {
-  AinftHandler
+  OpenaiAinizeHandler
 };

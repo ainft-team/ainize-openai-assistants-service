@@ -15,9 +15,14 @@ OPENAI_API_KEY=..
 ```
 
 ## How to run the server
+### Run dev mode
+```bsh
+$ yarn dev
+```
+
 ### Run on terminal
 ```bsh
-$ node index.js
+$ yarn start
 ```
 
 ### Simply check the server status out on

@@ -1,7 +1,8 @@
 const express = require('express');
 
 const {
-  AinftHandler,
+  OpenaiAinizeHandler,
+  Middleware,
   ErrorHandler,
   ErrorUtil
 } = require('./handlers');
@@ -13,22 +14,26 @@ const port = process.env.PORT || 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.post('/assistants/create', AinftHandler.createAssistant);
-app.post('/assistants/get', AinftHandler.getAssistant);
-app.post('/threads/create', AinftHandler.createThread);
-app.post('/threads/get', AinftHandler.getThread);
-app.post('/messages/create', AinftHandler.createMessage);
-app.post('/messages/get', AinftHandler.getMessage);
-app.post('/credit/charge', AinftHandler.chargeAinizeCredit);
-app.post('/credit/get', AinftHandler.getAinizeCredit);
+// TODO(minsu): Add Joi
+app.post('/service', Middleware.classifyJobType, OpenaiAinizeHandler.service);
+app.post('/deposit', OpenaiAinizeHandler.deposit);
 
-app.put('/assistants/update', AinftHandler.updateAssistant);
+// NOTE(minsu): needs discussion about the structure below
+app.post('/assistants/get', OpenaiAinizeHandler.getAssistant);
+app.post('/threads/create', OpenaiAinizeHandler.createThread);
+app.post('/threads/get', OpenaiAinizeHandler.getThread);
+app.post('/messages/create', OpenaiAinizeHandler.createMessage);
+app.post('/messages/get', OpenaiAinizeHandler.getMessage);
+app.post('/credit/charge', OpenaiAinizeHandler.chargeAinizeCredit);
+app.post('/credit/get', OpenaiAinizeHandler.getAinizeCredit);
 
-app.delete('/assistants/delete', AinftHandler.deleteAssistant);
-app.delete('/threads/delete', AinftHandler.deleteThread);
+app.put('/assistants/update', OpenaiAinizeHandler.updateAssistant);
 
-app.get('/assistants/list', AinftHandler.listAssistants);
-app.get('/threads/list', AinftHandler.listThreads);
+app.delete('/assistants/delete', OpenaiAinizeHandler.deleteAssistant);
+app.delete('/threads/delete', OpenaiAinizeHandler.deleteThread);
+
+app.get('/assistants/list', OpenaiAinizeHandler.listAssistants);
+app.get('/threads/list', OpenaiAinizeHandler.listThreads);
 
 app.get('/health', (req, res, next) => {
   try {
