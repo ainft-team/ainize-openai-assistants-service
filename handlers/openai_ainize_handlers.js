@@ -12,15 +12,15 @@ class OpenaiAinizeHandler {
         getRequestUrlFunction,
         getRequestBodyFunction
       } = getRequestMaterialsFromJobType(jobType);
-      const requestUrl = getRequestUrlFunction();
-      const requestBody = getRequestBodyFunction({});
+      const requestUrl = getRequestUrlFunction({ });
+      const requestBody = getRequestBodyFunction({ });
       const response = await callOpenai({
         method: requestMethod,
         url: requestUrl,
         body: JSON.stringify(requestBody)
       });
 
-      res.status(200).json(Utils.serializeMessage('ok', response.data));
+      res.status(200).json(Utils.serializeMessage(`${jobType} ok`, response.data));
     } catch (error) {
       throw ErrorUtil.setCustomError(500, error);
     }
@@ -46,14 +46,6 @@ class OpenaiAinizeHandler {
   static getAinizeCredit = (req, res, next) => {
     try {
       res.status(200).json(Utils.serializeMessage('ok', { hello: 'world' }));
-    } catch (error) {
-      throw ErrorUtil.setCustomError(500, error);
-    }
-  }
-
-  static createAssistant = (req, res, next) => {
-    try {
-      res.status(201).json(Utils.serializeMessage('ok', { hello: 'world' }));
     } catch (error) {
       throw ErrorUtil.setCustomError(500, error);
     }

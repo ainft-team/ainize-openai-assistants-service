@@ -14,11 +14,11 @@ const port = process.env.PORT || 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// TODO(minsu): Add Joi
 app.post('/service', Middleware.classifyJobType, OpenaiAinizeHandler.service);
 app.post('/deposit', OpenaiAinizeHandler.deposit);
 
 // NOTE(minsu): needs discussion about the structure below
-app.post('/assistants/create', OpenaiAinizeHandler.createAssistant);
 app.post('/assistants/get', OpenaiAinizeHandler.getAssistant);
 app.post('/threads/create', OpenaiAinizeHandler.createThread);
 app.post('/threads/get', OpenaiAinizeHandler.getThread);

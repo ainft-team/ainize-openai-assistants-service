@@ -11,7 +11,7 @@ const callOpenai = async ({ method, url, body }) => {
       Authorization: "Bearer " + OPENAI_API_KEY,
       "OpenAI-Beta": "assistants=v1"
     },
-    data: { model: 'gpt-4' }
+    data: body
   });
   return response;
 }
