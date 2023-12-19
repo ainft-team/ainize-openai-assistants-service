@@ -7,9 +7,14 @@ class OpenaiAinizeHandler {
   static service = (req, res, next) => {
     try {
       const { jobType } = res.locals;
-      const getRequestBody = getRequestMaterialsFromJobType(jobType);
-      const requestBody = getRequestBody({});
-      res.status(200).json(Utils.serializeMessage('ok', { hello: requestBody }));
+      const {
+        requestMethod,
+        getRequestUrlFunction,
+        getRequestBodyFunction
+      } = getRequestMaterialsFromJobType(jobType);
+      const requestUrl = getRequestUrlFunction();
+      const requestBody = getRequestBodyFunction({});
+      res.status(200).json(Utils.serializeMessage('ok', { requestMethod, requestUrl, requestBody }));
     } catch (error) {
       throw ErrorUtil.setCustomError(500, error);
     }
