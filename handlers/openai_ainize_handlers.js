@@ -1,4 +1,4 @@
-const { OpenaiRequestBodyBuilder } = require('../data')
+const { getRequestMaterialsFromJobType } = require('../data');
 const { ErrorUtil } = require('./error');
 const { Utils } = require('./utils');
 
@@ -7,7 +7,7 @@ class OpenaiAinizeHandler {
   static service = (req, res, next) => {
     try {
       const { jobType } = res.locals;
-      const getRequestBody = OpenaiRequestBodyBuilder.getRequestBodyFunction(jobType);
+      const getRequestBody = getRequestMaterialsFromJobType(jobType);
       const requestBody = getRequestBody({});
       res.status(200).json(Utils.serializeMessage('ok', { hello: requestBody }));
     } catch (error) {

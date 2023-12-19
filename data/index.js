@@ -1,5 +1,5 @@
-const { OpenaiRequestBodyBuilder } = require('./openai_request_body_builder');
+const { getRequestMaterialsFromJobType } = require('./job_classifier');
 
 module.exports = {
-  OpenaiRequestBodyBuilder
+  getRequestMaterialsFromJobType,
 };

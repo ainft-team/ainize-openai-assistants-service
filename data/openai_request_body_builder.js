@@ -1,7 +1,5 @@
-const { JOB_TYPES } = require('../constants');
-
 class OpenaiRequestBodyBuilder {
-  static _createAssistant = ({
+  static createAssistant = ({
     model = 'gpt-4',
     name = null,
     description = null,
@@ -12,13 +10,6 @@ class OpenaiRequestBodyBuilder {
   }) => {
     return { model, name, description, instructions, tools, file_ids, metadata };
   };
-
-  static getRequestBodyFunction = (jobType) => {
-    switch (jobType) {
-      case JOB_TYPES.CREATE_ASSISTANT:
-        return OpenaiRequestBodyBuilder._createAssistant;
-    }
-  }
 };
 
 module.exports = {
