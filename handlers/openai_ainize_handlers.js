@@ -6,14 +6,20 @@ const { Utils } = require('./utils');
 class OpenaiAinizeHandler {
   static service = async (req, res, next) => {
     try {
-      const { jobType, assistantId } = req.body;
+      const { jobType, model, name, description, instructions, assistantId } = req.body;
       const {
         requestMethod,
         getRequestUrlFunction,
         getRequestBodyFunction
       } = getRequestMaterialsFromJobType(jobType);
-      const requestUrl = getRequestUrlFunction((assistantId && [assistantId]));
-      const requestBody = (getRequestBodyFunction && getRequestBodyFunction({ }));
+      const requestUrl = getRequestUrlFunction((assistantId ? [assistantId]: []));
+      const requestBodyFromUserInput = {
+        ...(model && { model }),
+        ...(name && { name }),
+        ...(description && { description }),
+        ...(instructions && { instructions }),
+      };
+      const requestBody = (getRequestBodyFunction && getRequestBodyFunction(requestBodyFromUserInput));
       const response = await callOpenai({
         method: requestMethod,
         url: requestUrl,
