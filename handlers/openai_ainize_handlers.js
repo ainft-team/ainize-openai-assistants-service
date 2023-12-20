@@ -6,18 +6,18 @@ const { Utils } = require('./utils');
 class OpenaiAinizeHandler {
   static service = async (req, res, next) => {
     try {
-      const { jobType } = res.locals;
+      const { jobType, assistantId } = req.body;
       const {
         requestMethod,
         getRequestUrlFunction,
         getRequestBodyFunction
       } = getRequestMaterialsFromJobType(jobType);
-      const requestUrl = getRequestUrlFunction({ });
-      const requestBody = getRequestBodyFunction({ });
+      const requestUrl = getRequestUrlFunction((assistantId && [assistantId]));
+      const requestBody = (getRequestBodyFunction && getRequestBodyFunction({ }));
       const response = await callOpenai({
         method: requestMethod,
         url: requestUrl,
-        body: JSON.stringify(requestBody)
+        ...(requestBody && { body: JSON.stringify(requestBody) })
       });
 
       res.status(200).json(Utils.serializeMessage(`${jobType} ok`, response.data));
