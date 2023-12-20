@@ -23,10 +23,10 @@ class OpenaiAinizeHandler {
       const response = await callOpenai({
         method: requestMethod,
         url: requestUrl,
-        ...(requestBody && { body: JSON.stringify(requestBody) })
+        ...(requestBody && { body: requestBody })
       });
 
-      res.status(200).json(Utils.serializeMessage(`${jobType} ok`, response.data));
+      res.status(200).json(Utils.serializeMessage(`${jobType} ok`, response?.data));
     } catch (error) {
       throw ErrorUtil.setCustomError(500, error);
     }

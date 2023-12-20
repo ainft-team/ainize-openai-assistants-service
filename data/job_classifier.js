@@ -18,6 +18,12 @@ const getRequestMaterialsFromJobType = (jobType) => {
         requestMethod: HTTP_REQUEST_METHODS.GET,
         getRequestUrlFunction: OpenaiUrlBuilder.assistantBaseWithAssistantIdUrl,
       };
+    case JOB_TYPES.MODIFY_ASSISTANT:
+      return {
+        requestMethod: HTTP_REQUEST_METHODS.POST,
+        getRequestUrlFunction: OpenaiUrlBuilder.assistantBaseWithAssistantIdUrl,
+        getRequestBodyFunction: OpenaiRequestBodyBuilder.modifyAssistant
+      };
   }
 };
 
