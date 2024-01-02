@@ -6,13 +6,22 @@ const { Utils } = require('./utils');
 class OpenaiAinizeHandler {
   static service = async (req, res, next) => {
     try {
-      const { jobType, model, name, description, instructions, assistantId } = req.body;
+      const {
+        jobType, model, name, description, instructions, assistantId,
+        limit, order, after, before
+       } = req.body;
       const {
         requestMethod,
         getRequestUrlFunction,
         getRequestBodyFunction
       } = getRequestMaterialsFromJobType(jobType);
       const requestUrl = getRequestUrlFunction((assistantId ? [assistantId]: []));
+      const query = Object.entries({ limit, order, after, before })
+      .filter(([k, e]) => e)
+      .reduce((acc, [k, e]) => {
+          return acc + `${k}=${e}&`
+        }, "?")
+      .slice(0, -1);
       const requestBodyFromUserInput = {
         ...(model && { model }),
         ...(name && { name }),
@@ -22,7 +31,7 @@ class OpenaiAinizeHandler {
       const requestBody = (getRequestBodyFunction && getRequestBodyFunction(requestBodyFromUserInput));
       const response = await callOpenai({
         method: requestMethod,
-        url: requestUrl,
+        url: requestUrl + query,
         ...(requestBody && { body: requestBody })
       });
 

@@ -24,6 +24,15 @@ const getRequestMaterialsFromJobType = (jobType) => {
         getRequestUrlFunction: OpenaiUrlBuilder.assistantBaseWithAssistantIdUrl,
         getRequestBodyFunction: OpenaiRequestBodyBuilder.modifyAssistant
       };
+    case JOB_TYPES.DELETE_ASSISTANT:
+      return {
+
+      };
+    case JOB_TYPES.LIST_ASSISTANTS:
+      return {
+        requestMethod: HTTP_REQUEST_METHODS.GET,
+        getRequestUrlFunction: OpenaiUrlBuilder.assistantBaseUrl,
+      };
   }
 };
 
