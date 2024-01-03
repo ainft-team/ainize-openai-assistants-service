@@ -66,38 +66,6 @@ class OpenaiAinizeHandler {
     }
   }
 
-  static updateAssistant = (req, res, next) => {
-    try {
-      res.status(200).json(Utils.serializeMessage('ok', { hello: 'world' }));
-    } catch (error) {
-      throw ErrorUtil.setCustomError(500, error);
-    }
-  }
-
-  static deleteAssistant = (req, res, next) => {
-    try {
-      res.status(200).json(Utils.serializeMessage('ok', { hello: 'world' }));
-    } catch (error) {
-      throw ErrorUtil.setCustomError(500, error);
-    }
-  }
-
-  static getAssistant = (req, res, next) => {
-    try {
-      res.status(200).json(Utils.serializeMessage('ok', { hello: 'world' }));
-    } catch (error) {
-      throw ErrorUtil.setCustomError(500, error);
-    }
-  }
-
-  static listAssistants = (req, res, next) => {
-    try {
-      res.status(200).json(Utils.serializeMessage('ok', { hello: 'world' }));
-    } catch (error) {
-      throw ErrorUtil.setCustomError(500, error);
-    }
-  }
-
   static createThread = (req, res, next) => {
     try {
       res.status(201).json(Utils.serializeMessage('ok', { hello: 'world' }));
