@@ -26,7 +26,8 @@ const getRequestMaterialsFromJobType = (jobType) => {
       };
     case JOB_TYPES.DELETE_ASSISTANT:
       return {
-
+        requestMethod: HTTP_REQUEST_METHODS.DELETE,
+        getRequestUrlFunction: OpenaiUrlBuilder.assistantBaseWithAssistantIdUrl,
       };
     case JOB_TYPES.LIST_ASSISTANTS:
       return {
