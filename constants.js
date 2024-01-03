@@ -1,5 +1,9 @@
 const JOB_TYPES = Object.freeze({
-  CREATE_ASSISTANT: 'create_assistant'
+  CREATE_ASSISTANT: 'create_assistant',
+  RETRIEVE_ASSISTANT: 'retrieve_assistant',
+  MODIFY_ASSISTANT: 'modify_assistant',
+  DELETE_ASSISTANT: 'delete_assistant',
+  LIST_ASSISTANTS: 'list_assistants'
 });
 
 const OPENAI_ENDPOINT = 'https://api.openai.com/v1';

@@ -6,21 +6,36 @@ const { Utils } = require('./utils');
 class OpenaiAinizeHandler {
   static service = async (req, res, next) => {
     try {
-      const { jobType } = res.locals;
+      const {
+        jobType, model, name, description, instructions, assistantId,
+        limit, order, after, before
+       } = req.body;
       const {
         requestMethod,
         getRequestUrlFunction,
         getRequestBodyFunction
       } = getRequestMaterialsFromJobType(jobType);
-      const requestUrl = getRequestUrlFunction({ });
-      const requestBody = getRequestBodyFunction({ });
+      const requestUrl = getRequestUrlFunction((assistantId ? [assistantId]: []));
+      const query = Object.entries({ limit, order, after, before })
+      .filter(([k, e]) => e)
+      .reduce((acc, [k, e]) => {
+          return acc + `${k}=${e}&`
+        }, "?")
+      .slice(0, -1);
+      const requestBodyFromUserInput = {
+        ...(model && { model }),
+        ...(name && { name }),
+        ...(description && { description }),
+        ...(instructions && { instructions }),
+      };
+      const requestBody = (getRequestBodyFunction && getRequestBodyFunction(requestBodyFromUserInput));
       const response = await callOpenai({
         method: requestMethod,
-        url: requestUrl,
-        body: JSON.stringify(requestBody)
+        url: requestUrl + query,
+        ...(requestBody && { body: requestBody })
       });
 
-      res.status(200).json(Utils.serializeMessage(`${jobType} ok`, response.data));
+      res.status(200).json(Utils.serializeMessage(`${jobType} ok`, response?.data));
     } catch (error) {
       throw ErrorUtil.setCustomError(500, error);
     }

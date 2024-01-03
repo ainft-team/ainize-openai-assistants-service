@@ -10,8 +10,29 @@ const getRequestMaterialsFromJobType = (jobType) => {
     case JOB_TYPES.CREATE_ASSISTANT:
       return {
         requestMethod: HTTP_REQUEST_METHODS.POST,
-        getRequestUrlFunction: OpenaiUrlBuilder.createAssistantUrl,
+        getRequestUrlFunction: OpenaiUrlBuilder.assistantBaseUrl,
         getRequestBodyFunction: OpenaiRequestBodyBuilder.createAssistant
+      };
+    case JOB_TYPES.RETRIEVE_ASSISTANT:
+      return {
+        requestMethod: HTTP_REQUEST_METHODS.GET,
+        getRequestUrlFunction: OpenaiUrlBuilder.assistantBaseWithAssistantIdUrl,
+      };
+    case JOB_TYPES.MODIFY_ASSISTANT:
+      return {
+        requestMethod: HTTP_REQUEST_METHODS.POST,
+        getRequestUrlFunction: OpenaiUrlBuilder.assistantBaseWithAssistantIdUrl,
+        getRequestBodyFunction: OpenaiRequestBodyBuilder.modifyAssistant
+      };
+    case JOB_TYPES.DELETE_ASSISTANT:
+      return {
+        requestMethod: HTTP_REQUEST_METHODS.DELETE,
+        getRequestUrlFunction: OpenaiUrlBuilder.assistantBaseWithAssistantIdUrl,
+      };
+    case JOB_TYPES.LIST_ASSISTANTS:
+      return {
+        requestMethod: HTTP_REQUEST_METHODS.GET,
+        getRequestUrlFunction: OpenaiUrlBuilder.assistantBaseUrl,
       };
   }
 };

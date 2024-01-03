@@ -12,6 +12,9 @@ const callOpenai = async ({ method, url, body }) => {
       "OpenAI-Beta": "assistants=v1"
     },
     data: body
+  }).catch(error => {
+    // TODO(minsu): need to response correctly in this case
+    console.log(JSON.parse(JSON.stringify(error)));
   });
   return response;
 }

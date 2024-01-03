@@ -10,6 +10,25 @@ class OpenaiRequestBodyBuilder {
   }) => {
     return { model, name, description, instructions, tools, file_ids, metadata };
   };
+
+  static modifyAssistant = ({
+    model,
+    name,
+    description,
+    instructions,
+    tools = [],
+    file_ids = [],
+    metadata = {}
+  }) => {
+    return {
+      ...(model && { model }),
+      ...(name && { name }),
+      ...(description && { description }),
+      ...(instructions && { instructions }),
+      tools,
+      file_ids,
+      metadata };
+  }
 };
 
 module.exports = {

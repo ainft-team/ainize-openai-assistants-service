@@ -9,7 +9,6 @@ class Middleware {
       if (!Object.values(JOB_TYPES).includes(jobType)) {
         throw ErrorUtil.setCustomError(422, `The given job type(${jobType}) is not on the list.`);
       } else {
-        res.locals.jobType = jobType;
         next();
         return;
       }
