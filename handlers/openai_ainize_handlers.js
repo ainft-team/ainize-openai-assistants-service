@@ -1,12 +1,9 @@
-const Ainize = require("@ainize-team/ainize-js").default;
 
-const { getRequestMaterialsFromJobType, callOpenai } = require('../data');
 const { ErrorUtil } = require('./error');
 const { Utils } = require('./utils');
-const { AINIZE_PRIVATE_KEY } = require('../env');
-
-const ainizeAdmin = new Ainize(0);
-ainizeAdmin.login(AINIZE_PRIVATE_KEY);
+const { getRequestMaterialsFromJobType, callOpenai } = require('../data');
+const { ainizeAdmin } = require('../ainize');
+const { AINIZE_STATUS } = require('../constants');
 
 // TODO(all): Fill in the handlers.
 class OpenaiAinizeHandler {
@@ -42,7 +39,7 @@ class OpenaiAinizeHandler {
       //   ...(requestBody && { body: requestBody })
       // });
 
-      await ainizeAdmin.internal.handleRequest(req, 0, 200, requestData);
+      await ainizeAdmin.internal.handleRequest(req, 0, AINIZE_STATUS.SUCCESS, requestData);
       // res.status(200).json(Utils.serializeMessage(`${jobType} ok`, response?.data));
     } catch (error) {
       throw ErrorUtil.setCustomError(500, error);
