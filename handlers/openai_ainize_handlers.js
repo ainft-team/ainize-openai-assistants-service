@@ -1,4 +1,4 @@
-const Ainize = require("@ainize-team/ainize-sdk").default;
+const Ainize = require("@ainize-team/ainize-js").default;
 
 const { getRequestMaterialsFromJobType, callOpenai } = require('../data');
 const { ErrorUtil } = require('./error');
