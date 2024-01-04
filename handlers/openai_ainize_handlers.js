@@ -42,7 +42,7 @@ class OpenaiAinizeHandler {
       //   ...(requestBody && { body: requestBody })
       // });
 
-      await ainizeAdmin.internal.handleRequest().handleRequest(req, 0, 200, 'test back!');
+      await ainizeAdmin.internal.handleRequest(req, 0, 200, requestData);
       // res.status(200).json(Utils.serializeMessage(`${jobType} ok`, response?.data));
     } catch (error) {
       throw ErrorUtil.setCustomError(500, error);
