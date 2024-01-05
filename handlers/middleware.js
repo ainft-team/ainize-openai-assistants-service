@@ -2,6 +2,8 @@ const { ErrorUtil } = require('./error');
 const { Utils } = require('./utils');
 const { JOB_TYPES } = require('../constants');
 
+const { ainizeAdmin } = require('../ainize');
+
 class Middleware {
   static classifyJobType = (req, res, next) => {
     try {
