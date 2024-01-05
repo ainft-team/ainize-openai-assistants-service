@@ -5,7 +5,9 @@ const { JOB_TYPES } = require('../constants');
 class Middleware {
   static classifyJobType = (req, res, next) => {
     try {
-      const { jobType } = req.body;
+      // const { jobType } = req.body;
+      const { requestData } = ainizeAdmin.internal.getDataFromServiceRequest(req);
+      const jobType = requestData?.jobType;
       if (!Object.values(JOB_TYPES).includes(jobType)) {
         throw ErrorUtil.setCustomError(422, `The given job type(${jobType}) is not on the list.`);
       } else {
