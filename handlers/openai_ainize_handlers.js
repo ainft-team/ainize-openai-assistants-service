@@ -14,32 +14,36 @@ class OpenaiAinizeHandler {
       //   limit, order, after, before
       // } = req.body;
       const { requestData } = ainizeAdmin.internal.getDataFromServiceRequest(req);
-      // const {
-      //   requestMethod,
-      //   getRequestUrlFunction,
-      //   getRequestBodyFunction
-      // } = getRequestMaterialsFromJobType(jobType);
-      // const requestUrl = getRequestUrlFunction((assistantId ? [assistantId]: []));
-      // const query = Object.entries({ limit, order, after, before })
-      // .filter(([k, e]) => e)
-      // .reduce((acc, [k, e]) => {
-      //     return acc + `${k}=${e}&`
-      //   }, "?")
-      // .slice(0, -1);
-      // const requestBodyFromUserInput = {
-      //   ...(model && { model }),
-      //   ...(name && { name }),
-      //   ...(description && { description }),
-      //   ...(instructions && { instructions }),
-      // };
-      // const requestBody = (getRequestBodyFunction && getRequestBodyFunction(requestBodyFromUserInput));
-      // const response = await callOpenai({
-      //   method: requestMethod,
-      //   url: requestUrl + query,
-      //   ...(requestBody && { body: requestBody })
-      // });
+      const {
+        jobType, model, name, description, instructions, assistantId,
+        limit, order, after, before
+      } = requestData;
+      const {
+        requestMethod,
+        getRequestUrlFunction,
+        getRequestBodyFunction
+      } = getRequestMaterialsFromJobType(jobType);
+      const requestUrl = getRequestUrlFunction((assistantId ? [assistantId]: []));
+      const query = Object.entries({ limit, order, after, before })
+      .filter(([k, e]) => e)
+      .reduce((acc, [k, e]) => {
+          return acc + `${k}=${e}&`
+        }, "?")
+      .slice(0, -1);
+      const requestBodyFromUserInput = {
+        ...(model && { model }),
+        ...(name && { name }),
+        ...(description && { description }),
+        ...(instructions && { instructions }),
+      };
+      const requestBody = (getRequestBodyFunction && getRequestBodyFunction(requestBodyFromUserInput));
+      const response = await callOpenai({
+        method: requestMethod,
+        url: requestUrl + query,
+        ...(requestBody && { body: requestBody })
+      });
 
-      await ainizeAdmin.internal.handleRequest(req, 0, AINIZE_STATUS.SUCCESS, requestData);
+      await ainizeAdmin.internal.handleRequest(req, 0, AINIZE_STATUS.SUCCESS, response?.data);
       // res.status(200).json(Utils.serializeMessage(`${jobType} ok`, response?.data));
     } catch (error) {
       throw ErrorUtil.setCustomError(500, error);
