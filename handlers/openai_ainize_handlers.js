@@ -42,8 +42,9 @@ class OpenaiAinizeHandler {
         url: requestUrl + query,
         ...(requestBody && { body: requestBody })
       });
+      const parsedData = JSON.parse(response?.data ? response.data : { no: 'data' });
 
-      await ainizeAdmin.internal.handleRequest(req, 0, AINIZE_STATUS.SUCCESS, response?.data);
+      await ainizeAdmin.internal.handleRequest(req, 0, AINIZE_STATUS.SUCCESS, parsedData);
       // res.status(200).json(Utils.serializeMessage(`${jobType} ok`, response?.data));
     } catch (error) {
       throw ErrorUtil.setCustomError(500, error);
