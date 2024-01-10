@@ -30,7 +30,7 @@ class OpenaiAinizeHandler {
       const {
         jobType, model, name, description, instructions, assistantId,
         limit, order, after, before
-      } = REST_MODE ? req.body : (ainizeAdmin.internal.getDataFromServiceRequest(req))().requestData;
+      } = REST_MODE ? req.body : ainizeAdmin.internal.getDataFromServiceRequest(req).requestData;
       const {
         requestMethod,
         getRequestUrlFunction,
