@@ -1,12 +1,13 @@
 const { ainizeAdmin } = require('../ainize');
 const { AINIZE_STATUS } = require('../constants');
+const { REST_MODE } = require('../env');
 
 class ErrorHandler {
   static sendErrorResponse(err, req, res, next) {
     const statusCode = err.status || 500;
     const redirectPath = err.redirectPath || null;
     // FIXME(minsu): will be separated.
-    ainizeAdmin.internal.handleRequest(req, 0, AINIZE_STATUS.FAILURE, err.message);
+    if (!REST_MODE) ainizeAdmin.internal.handleRequest(req, 0, AINIZE_STATUS.FAILURE, err.message);
     return res.status(statusCode).json(
       ErrorUtil.serializeErrorMessage(statusCode, err.message, redirectPath));
   }

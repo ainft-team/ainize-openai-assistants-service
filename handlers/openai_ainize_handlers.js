@@ -4,20 +4,16 @@ const { Utils } = require('./utils');
 const { getRequestMaterialsFromJobType, callOpenai } = require('../data');
 const { ainizeAdmin } = require('../ainize');
 const { AINIZE_STATUS } = require('../constants');
+const { REST_MODE } = require('../env');
 
 // TODO(all): Fill in the handlers.
 class OpenaiAinizeHandler {
   static service = async (req, res, next) => {
     try {
-      // const {
-      //   jobType, model, name, description, instructions, assistantId,
-      //   limit, order, after, before
-      // } = req.body;
-      const { requestData } = ainizeAdmin.internal.getDataFromServiceRequest(req);
       const {
         jobType, model, name, description, instructions, assistantId,
         limit, order, after, before
-      } = requestData;
+      } = REST_MODE ? req.body : (ainizeAdmin.internal.getDataFromServiceRequest(req))().requestData;
       const {
         requestMethod,
         getRequestUrlFunction,
@@ -42,10 +38,10 @@ class OpenaiAinizeHandler {
         url: requestUrl + query,
         ...(requestBody && { body: requestBody })
       });
-      const parsedData = JSON.parse(response?.data ? response.data : { no: 'data' });
 
-      await ainizeAdmin.internal.handleRequest(req, 0, AINIZE_STATUS.SUCCESS, parsedData);
-      // res.status(200).json(Utils.serializeMessage(`${jobType} ok`, response?.data));
+      // FIXME(minsu): this is tempolar approach.
+      if (!REST_MODE) await ainizeAdmin.internal.handleRequest(req, 0, AINIZE_STATUS.SUCCESS, response.data);
+      res.status(200).json(Utils.serializeMessage(`${jobType} ok`, response?.data));
     } catch (error) {
       throw ErrorUtil.setCustomError(500, error);
     }
