@@ -6,6 +6,7 @@ class Utils {
   static TrimUnnecessaryDataForResponseData(data) {
     delete data.tools;
     delete data.file_ids;
+    // FIXME(minsu): metadata is necessary to show. but need to discuss how to cope with {}.
     delete data.metadata;
   }
 
