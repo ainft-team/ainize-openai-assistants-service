@@ -12,12 +12,18 @@ $ yarn install
 ## ENVs
 ```
 OPENAI_API_KEY=..
+AINIZE_PRIVATE_KEY=..
 ```
 
 ## How to run the server
 ### Run dev mode
 ```bsh
 $ yarn dev
+```
+
+### Run only restful api mode
+```bsh
+$ yarn dev:rest
 ```
 
 ### Run on terminal

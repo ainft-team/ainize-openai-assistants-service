@@ -1,3 +1,5 @@
+const { RESPONSE_STATUS } = require("@ainize-team/ainize-js/dist/types/type");
+
 const JOB_TYPES = Object.freeze({
   CREATE_ASSISTANT: 'create_assistant',
   RETRIEVE_ASSISTANT: 'retrieve_assistant',
@@ -21,9 +23,15 @@ const HTTP_REQUEST_METHODS = Object.freeze({
   PUT: 'PUT'
 });
 
+const AINIZE_STATUS = Object.freeze({
+  SUCCESS: RESPONSE_STATUS.SUCCESS,
+  FAILURE: RESPONSE_STATUS.FAIL
+})
+
 module.exports = {
   JOB_TYPES,
   OPENAI_ENDPOINT,
   OPENAI_ENDPOINT_PATH,
-  HTTP_REQUEST_METHODS
+  HTTP_REQUEST_METHODS,
+  AINIZE_STATUS
 };
