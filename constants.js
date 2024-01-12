@@ -5,7 +5,11 @@ const JOB_TYPES = Object.freeze({
   RETRIEVE_ASSISTANT: 'retrieve_assistant',
   MODIFY_ASSISTANT: 'modify_assistant',
   DELETE_ASSISTANT: 'delete_assistant',
-  LIST_ASSISTANTS: 'list_assistants'
+  LIST_ASSISTANTS: 'list_assistants',
+  CREATE_THREAD: 'create_thread',
+  RETRIEVE_THREAD: 'retrieve_thread',
+  MODIFY_THREAD: 'modify_thread',
+  DELETE_THREAD: 'delete_thread'
 });
 
 const OPENAI_ENDPOINT = 'https://api.openai.com/v1';

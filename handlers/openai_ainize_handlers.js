@@ -28,7 +28,7 @@ class OpenaiAinizeHandler {
   static service = async (req, res, next) => {
     try {
       const {
-        jobType, model, name, description, instructions, assistantId,
+        jobType, model, name, description, instructions, assistantId, threadId,
         limit, order, after, before
       } = REST_MODE ? req.body : ainizeAdmin.internal.getDataFromServiceRequest(req).requestData;
       const {
@@ -36,7 +36,7 @@ class OpenaiAinizeHandler {
         getRequestUrlFunction,
         getRequestBodyFunction
       } = getRequestMaterialsFromJobType(jobType);
-      const requestUrl = getRequestUrlFunction((assistantId ? [assistantId]: []));
+      const requestUrl = getRequestUrlFunction([assistantId, threadId].filter(e => e));
       const query = Object.entries({ limit, order, after, before })
       .filter(([k, e]) => e)
       .reduce((acc, [k, e]) => {
@@ -53,7 +53,7 @@ class OpenaiAinizeHandler {
       const response = await callOpenai({
         method: requestMethod,
         url: requestUrl + query,
-        ...(requestBody && { body: requestBody })
+        // ...(requestBody && { body: requestBody })   // FIXME(minsu): cannot send empty [], {} body
       });
       OpenaiAinizeHandler._postProcessResponseData(jobType, response.data);
 

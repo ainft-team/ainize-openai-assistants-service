@@ -27,7 +27,29 @@ class OpenaiRequestBodyBuilder {
       ...(instructions && { instructions }),
       tools,
       file_ids,
-      metadata };
+      metadata
+    };
+  }
+
+  static createMessage = ({
+    role = 'user',
+    content = '',
+    file_ids = [],
+    metadata = {}
+  }) => {
+    return {
+      ...(role && { role }),
+      ...(content && { content }),
+      file_ids,
+      metadata
+    };
+  }
+
+  static createThread = ({ message = [], metadata = {} }) => {
+    return {
+      ...(message && { message }),
+      metadata
+    };
   }
 };
 
