@@ -29,7 +29,7 @@ class OpenaiRequestBodyBuilder {
       file_ids,
       metadata
     };
-  }
+  };
 
   static createMessage = ({
     role = 'user',
@@ -43,14 +43,20 @@ class OpenaiRequestBodyBuilder {
       file_ids,
       metadata
     };
-  }
+  };
 
   static createThread = ({ message = [], metadata = {} }) => {
     return {
       ...(message && { message }),
       metadata
     };
-  }
+  };
+
+  static modifyThread = ({ metadata = {} }) => {
+    return {
+      ...(metadata && { metadata })
+    };
+  };
 };
 
 module.exports = {

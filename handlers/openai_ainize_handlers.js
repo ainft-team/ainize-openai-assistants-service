@@ -28,7 +28,7 @@ class OpenaiAinizeHandler {
   static service = async (req, res, next) => {
     try {
       const {
-        jobType, model, name, description, instructions, assistantId, threadId,
+        jobType, model, name, description, instructions, metadata, assistantId, threadId,
         limit, order, after, before
       } = REST_MODE ? req.body : ainizeAdmin.internal.getDataFromServiceRequest(req).requestData;
       const {
@@ -48,13 +48,15 @@ class OpenaiAinizeHandler {
         ...(name && { name }),
         ...(description && { description }),
         ...(instructions && { instructions }),
+        ...(metadata && { metadata }),
       };
       const requestBody = (getRequestBodyFunction && getRequestBodyFunction(requestBodyFromUserInput));
       const response = await callOpenai({
         method: requestMethod,
         url: requestUrl + query,
-        // ...(requestBody && { body: requestBody })   // FIXME(minsu): cannot send empty [], {} body
+        ...(requestBody && { body: requestBody })   // FIXME(minsu): cannot send empty [], {} body
       });
+      console.log(requestBody)
       OpenaiAinizeHandler._postProcessResponseData(jobType, response.data);
 
       // FIXME(minsu): this is tempolar approach.
