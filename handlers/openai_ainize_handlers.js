@@ -56,7 +56,6 @@ class OpenaiAinizeHandler {
         url: requestUrl + query,
         ...(requestBody && { body: requestBody })   // FIXME(minsu): cannot send empty [], {} body
       });
-      console.log(requestBody)
       OpenaiAinizeHandler._postProcessResponseData(jobType, response.data);
 
       // FIXME(minsu): this is tempolar approach.

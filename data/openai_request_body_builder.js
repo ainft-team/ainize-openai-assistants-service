@@ -45,10 +45,10 @@ class OpenaiRequestBodyBuilder {
     };
   };
 
-  static createThread = ({ message = [], metadata = {} }) => {
+  static createThread = ({ message, metadata }) => {
     return {
       ...(message && { message }),
-      metadata
+      ...(metadata && { metadata })
     };
   };
 
