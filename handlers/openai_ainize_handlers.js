@@ -28,7 +28,7 @@ class OpenaiAinizeHandler {
   static service = async (req, res, next) => {
     try {
       const {
-        jobType, model, name, description, instructions, assistantId,
+        jobType, model, name, description, instructions, metadata, assistantId, threadId,
         limit, order, after, before
       } = REST_MODE ? req.body : ainizeAdmin.internal.getDataFromServiceRequest(req).requestData;
       const {
@@ -36,7 +36,7 @@ class OpenaiAinizeHandler {
         getRequestUrlFunction,
         getRequestBodyFunction
       } = getRequestMaterialsFromJobType(jobType);
-      const requestUrl = getRequestUrlFunction((assistantId ? [assistantId]: []));
+      const requestUrl = getRequestUrlFunction([assistantId, threadId].filter(e => e));
       const query = Object.entries({ limit, order, after, before })
       .filter(([k, e]) => e)
       .reduce((acc, [k, e]) => {
@@ -48,12 +48,13 @@ class OpenaiAinizeHandler {
         ...(name && { name }),
         ...(description && { description }),
         ...(instructions && { instructions }),
+        ...(metadata && { metadata }),
       };
       const requestBody = (getRequestBodyFunction && getRequestBodyFunction(requestBodyFromUserInput));
       const response = await callOpenai({
         method: requestMethod,
         url: requestUrl + query,
-        ...(requestBody && { body: requestBody })
+        ...(requestBody && { body: requestBody })   // FIXME(minsu): cannot send empty [], {} body
       });
       OpenaiAinizeHandler._postProcessResponseData(jobType, response.data);
 
@@ -83,38 +84,6 @@ class OpenaiAinizeHandler {
   }
 
   static getAinizeCredit = (req, res, next) => {
-    try {
-      res.status(200).json(Utils.serializeMessage('ok', { hello: 'world' }));
-    } catch (error) {
-      throw ErrorUtil.setCustomError(500, error);
-    }
-  }
-
-  static createThread = (req, res, next) => {
-    try {
-      res.status(201).json(Utils.serializeMessage('ok', { hello: 'world' }));
-    } catch (error) {
-      throw ErrorUtil.setCustomError(500, error);
-    }
-  }
-
-  static deleteThread = (req, res, next) => {
-    try {
-      res.status(200).json(Utils.serializeMessage('ok', { hello: 'world' }));
-    } catch (error) {
-      throw ErrorUtil.setCustomError(500, error);
-    }
-  }
-
-  static getThread = (req, res, next) => {
-    try {
-      res.status(200).json(Utils.serializeMessage('ok', { hello: 'world' }));
-    } catch (error) {
-      throw ErrorUtil.setCustomError(500, error);
-    }
-  }
-
-  static listThreads = (req, res, next) => {
     try {
       res.status(200).json(Utils.serializeMessage('ok', { hello: 'world' }));
     } catch (error) {

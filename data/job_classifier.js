@@ -34,6 +34,28 @@ const getRequestMaterialsFromJobType = (jobType) => {
         requestMethod: HTTP_REQUEST_METHODS.GET,
         getRequestUrlFunction: OpenaiUrlBuilder.assistantBaseUrl,
       };
+    case JOB_TYPES.CREATE_THREAD:
+      return {
+        requestMethod: HTTP_REQUEST_METHODS.POST,
+        getRequestUrlFunction: OpenaiUrlBuilder.threadBaseUrl,
+        getRequestBodyFunction: OpenaiRequestBodyBuilder.createThread
+      };
+    case JOB_TYPES.RETRIEVE_THREAD:
+      return {
+        requestMethod: HTTP_REQUEST_METHODS.GET,
+        getRequestUrlFunction: OpenaiUrlBuilder.threadBaseWithThreadIdUrl
+      };
+    case JOB_TYPES.MODIFY_THREAD:
+      return {
+        requestMethod: HTTP_REQUEST_METHODS.POST,
+        getRequestUrlFunction: OpenaiUrlBuilder.threadBaseWithThreadIdUrl,
+        getRequestBodyFunction: OpenaiRequestBodyBuilder.modifyThread,
+      };
+    case JOB_TYPES.DELETE_THREAD:
+      return {
+        requestMethod: HTTP_REQUEST_METHODS.DELETE,
+        getRequestUrlFunction: OpenaiUrlBuilder.threadBaseWithThreadIdUrl,
+      }
   }
 };
 
