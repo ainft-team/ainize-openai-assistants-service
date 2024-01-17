@@ -34,15 +34,11 @@ class OpenaiAinizeHandler {
       const {
         requestMethod,
         getRequestUrlFunction,
-        getRequestBodyFunction
+        getRequestBodyFunction,
+        getRequestQueryFunction
       } = getRequestMaterialsFromJobType(jobType);
       const requestUrl = getRequestUrlFunction([assistantId, threadId].filter(e => e));
-      const query = Object.entries({ limit, order, after, before })
-      .filter(([k, e]) => e)
-      .reduce((acc, [k, e]) => {
-          return acc + `${k}=${e}&`
-        }, "?")
-      .slice(0, -1);
+      const query = (getRequestQueryFunction && getRequestQueryFunction({ limit, order, after, before }));
       const requestBodyFromUserInput = {
         ...(model && { model }),
         ...(name && { name }),
@@ -53,7 +49,7 @@ class OpenaiAinizeHandler {
       const requestBody = (getRequestBodyFunction && getRequestBodyFunction(requestBodyFromUserInput));
       const response = await callOpenai({
         method: requestMethod,
-        url: requestUrl + query,
+        url: requestUrl + (query ? query : ''),
         ...(requestBody && { body: requestBody })   // FIXME(minsu): cannot send empty [], {} body
       });
       OpenaiAinizeHandler._postProcessResponseData(jobType, response.data);
