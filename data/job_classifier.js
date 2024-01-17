@@ -1,5 +1,6 @@
 const { OpenaiUrlBuilder } = require('./openai_url_builder');
 const { OpenaiRequestBodyBuilder } = require('./openai_request_body_builder');
+const { OpenaiRequestQueryBuilder } = require('./openai_request_query_builder');
 const {
   JOB_TYPES,
   HTTP_REQUEST_METHODS
@@ -33,6 +34,7 @@ const getRequestMaterialsFromJobType = (jobType) => {
       return {
         requestMethod: HTTP_REQUEST_METHODS.GET,
         getRequestUrlFunction: OpenaiUrlBuilder.assistantBaseUrl,
+        getRequestQueryFunction: OpenaiRequestQueryBuilder.makeQuery,
       };
     case JOB_TYPES.CREATE_THREAD:
       return {
