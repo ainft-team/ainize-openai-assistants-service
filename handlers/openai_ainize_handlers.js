@@ -28,7 +28,8 @@ class OpenaiAinizeHandler {
   static service = async (req, res, next) => {
     try {
       const {
-        jobType, model, name, description, instructions, metadata, assistantId, threadId,
+        jobType, model, name, description, instructions, metadata, role, content,
+        assistantId, threadId,
         limit, order, after, before
       } = REST_MODE ? req.body : ainizeAdmin.internal.getDataFromServiceRequest(req).requestData;
       const {
@@ -45,6 +46,8 @@ class OpenaiAinizeHandler {
         ...(description && { description }),
         ...(instructions && { instructions }),
         ...(metadata && { metadata }),
+        ...(role && { role }),
+        ...(content && { content }),
       };
       const requestBody = (getRequestBodyFunction && getRequestBodyFunction(requestBodyFromUserInput));
       const response = await callOpenai({
@@ -80,22 +83,6 @@ class OpenaiAinizeHandler {
   }
 
   static getAinizeCredit = (req, res, next) => {
-    try {
-      res.status(200).json(Utils.serializeMessage('ok', { hello: 'world' }));
-    } catch (error) {
-      throw ErrorUtil.setCustomError(500, error);
-    }
-  }
-
-  static createMessage = (req, res, next) => {
-    try {
-      res.status(201).json(Utils.serializeMessage('ok', { hello: 'world' }));
-    } catch (error) {
-      throw ErrorUtil.setCustomError(500, error);
-    }
-  }
-
-  static getMessage = (req, res, next) => {
     try {
       res.status(200).json(Utils.serializeMessage('ok', { hello: 'world' }));
     } catch (error) {

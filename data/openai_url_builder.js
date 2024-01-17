@@ -16,6 +16,10 @@ class OpenaiUrlBuilder {
   static threadBaseWithThreadIdUrl = ([threadId]) => {
     return `${OpenaiUrlBuilder.threadBaseUrl([])}/${threadId}`;
   }
+
+  static messageBaseUrl = ([threadId]) => {
+    return `${OpenaiUrlBuilder.threadBaseWithThreadIdUrl([threadId])}${OPENAI_ENDPOINT_PATH.MESSAGES}`;
+  }
 };
 
 module.exports = {
