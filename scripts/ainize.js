@@ -58,7 +58,7 @@ const processArguments = async () => {
       await deployService();
       break;
     case 'deposit':
-      // NOTE(from ainize team): deployService 에서 minCost 0으로 세팅한 경우 deposit 필요 X
+      // NOTE(from ainize team): no need to deposit if service is deployed with minCost 0
       await deposit(30);
       break;
     case 'request':
