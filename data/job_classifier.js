@@ -70,6 +70,11 @@ const getRequestMaterialsFromJobType = (jobType) => {
         getRequestUrlFunction: OpenaiUrlBuilder.messageBaseUrl,
         getRequestQueryFunction: OpenaiRequestQueryBuilder.makeQuery
       };
+    case JOB_TYPES.RETRIEVE_MESSAGE:
+      return {
+        requestMethod: HTTP_REQUEST_METHODS.GET,
+        getRequestUrlFunction: OpenaiUrlBuilder.messageBaseWithMessageIdUrl
+      };
   }
 };
 
