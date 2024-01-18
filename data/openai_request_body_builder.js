@@ -47,7 +47,13 @@ class OpenaiRequestBodyBuilder {
     };
   };
 
-  static modifyThread = ({ metadata = {} }) => {
+  static modifyThread = ({ metadata }) => {
+    return {
+      ...(metadata && { metadata })
+    };
+  };
+
+  static modifyMessage = ({ metadata }) => {
     return {
       ...(metadata && { metadata })
     };
