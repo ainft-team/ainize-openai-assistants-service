@@ -9,7 +9,11 @@ const JOB_TYPES = Object.freeze({
   CREATE_THREAD: 'create_thread',
   RETRIEVE_THREAD: 'retrieve_thread',
   MODIFY_THREAD: 'modify_thread',
-  DELETE_THREAD: 'delete_thread'
+  DELETE_THREAD: 'delete_thread',
+  CREATE_MESSAGE: 'create_message',
+  LIST_MESSAGES: 'list_messages',
+  RETRIEVE_MESSAGE: 'retrieve_message',
+  MODIFY_MESSAGE: 'modify_message'
 });
 
 const OPENAI_ENDPOINT = 'https://api.openai.com/v1';

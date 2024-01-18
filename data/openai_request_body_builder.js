@@ -31,17 +31,12 @@ class OpenaiRequestBodyBuilder {
     };
   };
 
-  static createMessage = ({
-    role = 'user',
-    content = '',
-    file_ids = [],
-    metadata = {}
-  }) => {
+  static createMessage = ({ role = 'user', content = '', file_ids, metadata }) => {
     return {
-      ...(role && { role }),
-      ...(content && { content }),
-      file_ids,
-      metadata
+      role,
+      content,
+      ...(file_ids && { file_ids }),
+      ...(metadata && { metadata })
     };
   };
 
@@ -52,7 +47,13 @@ class OpenaiRequestBodyBuilder {
     };
   };
 
-  static modifyThread = ({ metadata = {} }) => {
+  static modifyThread = ({ metadata }) => {
+    return {
+      ...(metadata && { metadata })
+    };
+  };
+
+  static modifyMessage = ({ metadata }) => {
     return {
       ...(metadata && { metadata })
     };

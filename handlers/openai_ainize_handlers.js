@@ -8,6 +8,20 @@ const { REST_MODE } = require('../env');
 
 // TODO(all): Fill in the handlers.
 class OpenaiAinizeHandler {
+  static _preprocessUserInputForRequestBody = ({
+    model, name, description, instructions, metadata, role, content
+  }) => {
+    return {
+      ...(model && { model }),
+      ...(name && { name }),
+      ...(description && { description }),
+      ...(instructions && { instructions }),
+      ...(metadata && { metadata }),
+      ...(role && { role }),
+      ...(content && { content }),
+    };
+  };
+
   static _postProcessResponseData = (jobType, responseData) => {
     switch (jobType) {
       case JOB_TYPES.CREATE_ASSISTANT:
@@ -28,7 +42,8 @@ class OpenaiAinizeHandler {
   static service = async (req, res, next) => {
     try {
       const {
-        jobType, model, name, description, instructions, metadata, assistantId, threadId,
+        jobType, model, name, description, instructions, metadata, role, content,
+        assistantId, threadId, messageId,
         limit, order, after, before
       } = REST_MODE ? req.body : ainizeAdmin.internal.getDataFromServiceRequest(req).requestData;
       const {
@@ -37,15 +52,11 @@ class OpenaiAinizeHandler {
         getRequestBodyFunction,
         getRequestQueryFunction
       } = getRequestMaterialsFromJobType(jobType);
-      const requestUrl = getRequestUrlFunction([assistantId, threadId].filter(e => e));
+      const requestUrl = getRequestUrlFunction([assistantId, threadId, messageId].filter(e => e));
       const query = (getRequestQueryFunction && getRequestQueryFunction({ limit, order, after, before }));
-      const requestBodyFromUserInput = {
-        ...(model && { model }),
-        ...(name && { name }),
-        ...(description && { description }),
-        ...(instructions && { instructions }),
-        ...(metadata && { metadata }),
-      };
+      const requestBodyFromUserInput = OpenaiAinizeHandler._preprocessUserInputForRequestBody({
+        model, name, description, instructions, metadata, role, content
+      });
       const requestBody = (getRequestBodyFunction && getRequestBodyFunction(requestBodyFromUserInput));
       const response = await callOpenai({
         method: requestMethod,
@@ -80,22 +91,6 @@ class OpenaiAinizeHandler {
   }
 
   static getAinizeCredit = (req, res, next) => {
-    try {
-      res.status(200).json(Utils.serializeMessage('ok', { hello: 'world' }));
-    } catch (error) {
-      throw ErrorUtil.setCustomError(500, error);
-    }
-  }
-
-  static createMessage = (req, res, next) => {
-    try {
-      res.status(201).json(Utils.serializeMessage('ok', { hello: 'world' }));
-    } catch (error) {
-      throw ErrorUtil.setCustomError(500, error);
-    }
-  }
-
-  static getMessage = (req, res, next) => {
     try {
       res.status(200).json(Utils.serializeMessage('ok', { hello: 'world' }));
     } catch (error) {
