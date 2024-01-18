@@ -11,7 +11,7 @@ const JOB_TYPES = Object.freeze({
   MODIFY_THREAD: 'modify_thread',
   DELETE_THREAD: 'delete_thread',
   CREATE_MESSAGE: 'create_message',
-  LIST_MESSAGES: 'list_message',
+  LIST_MESSAGES: 'list_messages',
   RETRIEVE_MESSAGE: 'retrieve_message',
   MODIFY_MESSAGE: 'modify_message'
 });
