@@ -30,7 +30,8 @@ const OPENAI_ENDPOINT_PATH = Object.freeze({
   THREADS: '/threads',
   MESSAGES: '/messages',
   RUNS: '/runs',
-  STEPS: '/steps'
+  STEPS: '/steps',
+  CANCEL: '/cancel'
 });
 
 const HTTP_REQUEST_METHODS = Object.freeze({

@@ -40,6 +40,10 @@ class OpenaiUrlBuilder {
   static runBaseUrlWithRunIdStepIdUrl = ({ threadId, runId, stepId }) => {
     return `${OpenaiUrlBuilder.runBaseUrl({ threadId })}/${runId}${OPENAI_ENDPOINT_PATH.STEPS}/${stepId}`;
   };
+
+  static runBaseUrlWithRunIdCancelUrl = ({ threadId, runId }) => {
+    return `${OpenaiUrlBuilder.runBaseUrl({ threadId })}/${runId}${OPENAI_ENDPOINT_PATH.CANCEL}`;
+  }
 };
 
 module.exports = {

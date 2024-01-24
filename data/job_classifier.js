@@ -115,6 +115,11 @@ const getRequestMaterialsFromJobType = (jobType) => {
         getRequestUrlFunction: OpenaiUrlBuilder.runBaseUrlWithRunIdUrl,
         getRequestBodyFunction: OpenaiRequestBodyBuilder.modifyRun
       };
+    case JOB_TYPES.CANCEL_RUN:
+      return {
+        requestMethod: HTTP_REQUEST_METHODS.POST,
+        getRequestUrlFunction: OpenaiUrlBuilder.runBaseUrlWithRunIdCancelUrl
+      };
   };
 };
 
