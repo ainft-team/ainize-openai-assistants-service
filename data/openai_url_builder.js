@@ -28,6 +28,10 @@ class OpenaiUrlBuilder {
   static runBaseUrl = ({ threadId }) => {
     return `${OpenaiUrlBuilder.threadBaseWithThreadIdUrl({ threadId })}${OPENAI_ENDPOINT_PATH.RUNS}`;
   };
+
+  static runBaseUrlWithRunIdUrl = ({ threadId, runId }) => {
+    return `${OpenaiUrlBuilder.runBaseUrl({ threadId })}/${runId}${OPENAI_ENDPOINT_PATH.STEPS}`;
+  }
 };
 
 module.exports = {

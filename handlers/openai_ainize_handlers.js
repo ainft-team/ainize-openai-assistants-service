@@ -44,7 +44,7 @@ class OpenaiAinizeHandler {
     try {
       const {
         jobType, model, name, description, instructions, metadata, role, content,
-        assistantId, threadId, messageId,
+        assistantId, threadId, messageId, runId,
         limit, order, after, before
       } = REST_MODE ? req.body : ainizeAdmin.internal.getDataFromServiceRequest(req).requestData;
       const {
@@ -53,7 +53,7 @@ class OpenaiAinizeHandler {
         getRequestBodyFunction,
         getRequestQueryFunction
       } = getRequestMaterialsFromJobType(jobType);
-      const requestUrl = getRequestUrlFunction({ assistantId, threadId, messageId });
+      const requestUrl = getRequestUrlFunction({ assistantId, threadId, messageId, runId });
       const query = (getRequestQueryFunction && getRequestQueryFunction({ limit, order, after, before }));
       const requestBodyFromUserInput = OpenaiAinizeHandler._preprocessUserInputForRequestBody({
         model, name, description, instructions, metadata, role, content, assistantId
