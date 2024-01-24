@@ -104,7 +104,7 @@ const getRequestMaterialsFromJobType = (jobType) => {
         requestMethod: HTTP_REQUEST_METHODS.GET,
         getRequestUrlFunction: OpenaiUrlBuilder.runBaseUrlWithRunIdUrl
       };
-    case JOB_TYPES.RETRIEVE_RUN_STEPS:
+    case JOB_TYPES.RETRIEVE_RUN_STEP:
       return {
         requestMethod: HTTP_REQUEST_METHODS.GET,
         getRequestUrlFunction: OpenaiUrlBuilder.runBaseUrlWithRunIdStepIdUrl

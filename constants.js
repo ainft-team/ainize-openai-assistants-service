@@ -18,7 +18,7 @@ const JOB_TYPES = Object.freeze({
   LIST_RUNS: 'list_runs',
   LIST_RUN_STEPS: 'list_run_steps',
   RETRIEVE_RUN: 'retrieve_run',
-  RETRIEVE_RUN_STEPS: 'retrieve_run_steps',
+  RETRIEVE_RUN_STEP: 'retrieve_run_step',
   MODIFY_RUN: 'modify_run',
   CANCEL_RUN: 'cancel_run'
 });
