@@ -58,6 +58,17 @@ class OpenaiRequestBodyBuilder {
       ...(metadata && { metadata })
     };
   };
+
+  static createRun = ({ assistant_id, model, instructions, additional_instructions, tools, metadata }) => {
+    return {
+      assistant_id,
+      ...(model && { model }),
+      ...(instructions && { instructions }),
+      ...(additional_instructions && { additional_instructions }),
+      ...(tools && { tools }),
+      ...(metadata && { metadata }),
+    };
+  }
 };
 
 module.exports = {

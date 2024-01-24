@@ -9,7 +9,7 @@ const { REST_MODE } = require('../env');
 // TODO(all): Fill in the handlers.
 class OpenaiAinizeHandler {
   static _preprocessUserInputForRequestBody = ({
-    model, name, description, instructions, metadata, role, content
+    model, name, description, instructions, metadata, role, content, assistantId
   }) => {
     return {
       ...(model && { model }),
@@ -19,6 +19,7 @@ class OpenaiAinizeHandler {
       ...(metadata && { metadata }),
       ...(role && { role }),
       ...(content && { content }),
+      ...(assistantId && { assistant_id: assistantId })
     };
   };
 
@@ -52,10 +53,10 @@ class OpenaiAinizeHandler {
         getRequestBodyFunction,
         getRequestQueryFunction
       } = getRequestMaterialsFromJobType(jobType);
-      const requestUrl = getRequestUrlFunction([assistantId, threadId, messageId].filter(e => e));
+      const requestUrl = getRequestUrlFunction({ assistantId, threadId, messageId });
       const query = (getRequestQueryFunction && getRequestQueryFunction({ limit, order, after, before }));
       const requestBodyFromUserInput = OpenaiAinizeHandler._preprocessUserInputForRequestBody({
-        model, name, description, instructions, metadata, role, content
+        model, name, description, instructions, metadata, role, content, assistantId
       });
       const requestBody = (getRequestBodyFunction && getRequestBodyFunction(requestBodyFromUserInput));
       const response = await callOpenai({
