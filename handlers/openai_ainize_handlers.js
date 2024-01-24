@@ -9,7 +9,7 @@ const { REST_MODE } = require('../env');
 // TODO(all): Fill in the handlers.
 class OpenaiAinizeHandler {
   static _preprocessUserInputForRequestBody = ({
-    model, name, description, instructions, metadata, role, content
+    model, name, description, instructions, metadata, role, content, assistantId
   }) => {
     return {
       ...(model && { model }),
@@ -19,6 +19,7 @@ class OpenaiAinizeHandler {
       ...(metadata && { metadata }),
       ...(role && { role }),
       ...(content && { content }),
+      ...(assistantId && { assistant_id: assistantId })
     };
   };
 
@@ -43,7 +44,7 @@ class OpenaiAinizeHandler {
     try {
       const {
         jobType, model, name, description, instructions, metadata, role, content,
-        assistantId, threadId, messageId,
+        assistantId, threadId, messageId, runId, stepId,
         limit, order, after, before
       } = REST_MODE ? req.body : ainizeAdmin.internal.getDataFromServiceRequest(req).requestData;
       const {
@@ -52,10 +53,10 @@ class OpenaiAinizeHandler {
         getRequestBodyFunction,
         getRequestQueryFunction
       } = getRequestMaterialsFromJobType(jobType);
-      const requestUrl = getRequestUrlFunction([assistantId, threadId, messageId].filter(e => e));
+      const requestUrl = getRequestUrlFunction({ assistantId, threadId, messageId, runId, stepId });
       const query = (getRequestQueryFunction && getRequestQueryFunction({ limit, order, after, before }));
       const requestBodyFromUserInput = OpenaiAinizeHandler._preprocessUserInputForRequestBody({
-        model, name, description, instructions, metadata, role, content
+        model, name, description, instructions, metadata, role, content, assistantId
       });
       const requestBody = (getRequestBodyFunction && getRequestBodyFunction(requestBodyFromUserInput));
       const response = await callOpenai({
@@ -67,6 +68,7 @@ class OpenaiAinizeHandler {
 
       // FIXME(minsu): this is tempolar approach.
       if (!REST_MODE) await ainizeAdmin.internal.handleRequest(req, 0, AINIZE_STATUS.SUCCESS, response.data);
+      // FIXME(minsu): response can be either ok or err.
       res.status(200).json(Utils.serializeMessage(`${jobType} ok`, response.data));
     } catch (error) {
       throw ErrorUtil.setCustomError(500, error);

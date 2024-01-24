@@ -13,7 +13,14 @@ const JOB_TYPES = Object.freeze({
   CREATE_MESSAGE: 'create_message',
   LIST_MESSAGES: 'list_messages',
   RETRIEVE_MESSAGE: 'retrieve_message',
-  MODIFY_MESSAGE: 'modify_message'
+  MODIFY_MESSAGE: 'modify_message',
+  CREATE_RUN: 'create_run',
+  LIST_RUNS: 'list_runs',
+  LIST_RUN_STEPS: 'list_run_steps',
+  RETRIEVE_RUN: 'retrieve_run',
+  RETRIEVE_RUN_STEP: 'retrieve_run_step',
+  MODIFY_RUN: 'modify_run',
+  CANCEL_RUN: 'cancel_run'
 });
 
 const OPENAI_ENDPOINT = 'https://api.openai.com/v1';
@@ -22,6 +29,9 @@ const OPENAI_ENDPOINT_PATH = Object.freeze({
   ASSISTANTS: '/assistants',
   THREADS: '/threads',
   MESSAGES: '/messages',
+  RUNS: '/runs',
+  STEPS: '/steps',
+  CANCEL: '/cancel'
 });
 
 const HTTP_REQUEST_METHODS = Object.freeze({

@@ -81,7 +81,46 @@ const getRequestMaterialsFromJobType = (jobType) => {
         getRequestUrlFunction: OpenaiUrlBuilder.messageBaseWithMessageIdUrl,
         getRequestBodyFunction: OpenaiRequestBodyBuilder.modifyMessage
       };
-  }
+    case JOB_TYPES.CREATE_RUN:
+      return {
+        requestMethod: HTTP_REQUEST_METHODS.POST,
+        getRequestUrlFunction: OpenaiUrlBuilder.runBaseUrl,
+        getRequestBodyFunction: OpenaiRequestBodyBuilder.createRun
+      };
+    case JOB_TYPES.LIST_RUNS:
+      return {
+        requestMethod: HTTP_REQUEST_METHODS.GET,
+        getRequestUrlFunction: OpenaiUrlBuilder.runBaseUrl,
+        getRequestQueryFunction: OpenaiRequestQueryBuilder.makeQuery
+      };
+    case JOB_TYPES.LIST_RUN_STEPS:
+      return {
+        requestMethod: HTTP_REQUEST_METHODS.GET,
+        getRequestUrlFunction: OpenaiUrlBuilder.runBaseUrlWithRunIdStepsUrl,
+        getRequestQueryFunction: OpenaiRequestQueryBuilder.makeQuery
+      };
+    case JOB_TYPES.RETRIEVE_RUN:
+      return {
+        requestMethod: HTTP_REQUEST_METHODS.GET,
+        getRequestUrlFunction: OpenaiUrlBuilder.runBaseUrlWithRunIdUrl
+      };
+    case JOB_TYPES.RETRIEVE_RUN_STEP:
+      return {
+        requestMethod: HTTP_REQUEST_METHODS.GET,
+        getRequestUrlFunction: OpenaiUrlBuilder.runBaseUrlWithRunIdStepIdUrl
+      };
+    case JOB_TYPES.MODIFY_RUN:
+      return {
+        requestMethod: HTTP_REQUEST_METHODS.POST,
+        getRequestUrlFunction: OpenaiUrlBuilder.runBaseUrlWithRunIdUrl,
+        getRequestBodyFunction: OpenaiRequestBodyBuilder.modifyRun
+      };
+    case JOB_TYPES.CANCEL_RUN:
+      return {
+        requestMethod: HTTP_REQUEST_METHODS.POST,
+        getRequestUrlFunction: OpenaiUrlBuilder.runBaseUrlWithRunIdCancelUrl
+      };
+  };
 };
 
 module.exports = {
