@@ -87,6 +87,12 @@ const getRequestMaterialsFromJobType = (jobType) => {
         getRequestUrlFunction: OpenaiUrlBuilder.runBaseUrl,
         getRequestBodyFunction: OpenaiRequestBodyBuilder.createRun
       };
+    case JOB_TYPES.LIST_RUNS:
+      return {
+        requestMethod: HTTP_REQUEST_METHODS.GET,
+        getRequestUrlFunction: OpenaiUrlBuilder.runBaseUrl,
+        getRequestQueryFunction: OpenaiRequestQueryBuilder.makeQuery
+      };
   }
 };
 
