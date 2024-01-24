@@ -68,7 +68,13 @@ class OpenaiRequestBodyBuilder {
       ...(tools && { tools }),
       ...(metadata && { metadata }),
     };
-  }
+  };
+
+  static modifyRun = ({ metadata }) => {
+    return {
+      ...(metadata && { metadata })
+    };
+  };
 };
 
 module.exports = {
