@@ -13,8 +13,7 @@ const callOpenai = async ({ method, url, body }) => {
     },
     data: body
   }).catch(error => {
-    // TODO(minsu): need to response correctly in this case
-    console.log(JSON.parse(JSON.stringify(error)));
+    return JSON.parse(JSON.stringify(error));
   });
   return response;
 }
