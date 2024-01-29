@@ -23,7 +23,7 @@ class OpenaiAinizeHandler {
     };
   };
 
-  static _postProcessResponseData = (jobType, responseData) => {
+  static _postProcessFinalResponseData = (jobType, responseData) => {
     switch (jobType) {
       case JOB_TYPES.CREATE_ASSISTANT:
         Utils.TrimUnnecessaryDataForResponseData(responseData);
@@ -64,14 +64,19 @@ class OpenaiAinizeHandler {
         url: requestUrl + (query ? query : ''),
         ...(requestBody && { body: requestBody })   // FIXME(minsu): cannot send empty [], {} body
       });
-      OpenaiAinizeHandler._postProcessResponseData(jobType, response.data);
+
+      if (response?.status === 200) {
+        OpenaiAinizeHandler._postProcessFinalResponseData(jobType, response);
+      } else {
+        throw ErrorUtil.setCustomError(response.status, response.message);
+      }
 
       // FIXME(minsu): this is tempolar approach.
       if (!REST_MODE) await ainizeAdmin.internal.handleRequest(req, 0, AINIZE_STATUS.SUCCESS, response.data);
       // FIXME(minsu): response can be either ok or err.
       res.status(200).json(Utils.serializeMessage(`${jobType} ok`, response.data));
     } catch (error) {
-      throw ErrorUtil.setCustomError(500, error);
+      next(ErrorUtil.setCustomError(error.status, error.message));
     }
   }
 
