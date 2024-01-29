@@ -73,7 +73,6 @@ class OpenaiAinizeHandler {
 
       // FIXME(minsu): this is tempolar approach.
       if (!REST_MODE) await ainizeAdmin.internal.handleRequest(req, 0, AINIZE_STATUS.SUCCESS, response.data);
-      // FIXME(minsu): response can be either ok or err.
       res.status(200).json(Utils.serializeMessage(`${jobType} ok`, response.data));
     } catch (error) {
       next(ErrorUtil.setCustomError(error.status, error.message));
