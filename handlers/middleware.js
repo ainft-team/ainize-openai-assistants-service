@@ -25,9 +25,9 @@ class Middleware {
   static joiValidate = (req, res, next) => {
     const {
       jobType, model, name, description, instructions, tools, file_ids, metadata, messages,
-      role, content,
+      role, content, additional_instructions,
       limit, order, after, before,
-      assistantId, threadId, messageId
+      assistantId, threadId, messageId, runId, stepId
     } = REST_MODE ? req.body :
         ainizeAdmin.internal.getDataFromServiceRequest(req).requestData;
 
@@ -98,6 +98,40 @@ class Middleware {
           thread_id: threadId, message_id: messageId, metadata
         });
         break;
+      case JOB_TYPES.CREATE_RUN:
+        validationResult = joiSchema.createRunSchema.validate({
+          thread_id: threadId, assistant_id: assistantId, model, instructions, additional_instructions, tools, metadata
+        });
+        break;
+      case JOB_TYPES.LIST_RUNS:
+        validationResult = joiSchema.listRunsSchema.validate({
+          thread_id: threadId, limit, order, after, before
+        });
+        break;
+      case JOB_TYPES.LIST_RUN_STEPS:
+        validationResult = joiSchema.listRunStepsSchema.validate({
+          thread_id: threadId, run_id: runId, limit, order, after, before
+        });
+        break;
+      case JOB_TYPES.RETRIEVE_RUN:
+        validationResult = joiSchema.retrieveRunSchema.validate({
+          thread_id: threadId, run_id: runId
+        });
+        break;
+      case JOB_TYPES.RETRIEVE_RUN_STEP:
+        validationResult = joiSchema.retrieveRunStepSchema.validate({
+          thread_id: threadId, run_id: runId, step_id: stepId
+        });
+        break;
+      case JOB_TYPES.MODIFY_RUN:
+        validationResult = joiSchema.modifyRunSchema.validate({
+          thread_id: threadId, run_id: runId, metadata
+        });
+        break;
+      case JOB_TYPES.CANCEL_RUN:
+        validationResult = joiSchema.cancelRunSchema.validate({
+          thread_id: threadId, run_id: runId
+        })
     };
 
     if (!validationResult.error) {

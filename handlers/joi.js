@@ -76,6 +76,48 @@ const joiSchema = {
     thread_id: Joi.string().required(),
     message_id: Joi.string().required(),
     metadata: Joi.object()
+  }),
+  createRunSchema: Joi.object({
+    thread_id: Joi.string().required(),
+    assistant_id: Joi.string().required(),
+    model: Joi.string(),
+    instructions: Joi.string(),
+    additional_instructions: Joi.string(),
+    tools: Joi.array(),
+    metadata: Joi.object()
+  }),
+  listRunsSchema: Joi.object({
+    thread_id: Joi.string().required(),
+    limit: Joi.number().min(1).max(100),
+    order: Joi.string().valid('asc', 'desc'),
+    after: Joi.string(),
+    before: Joi.string()
+  }),
+  listRunStepsSchema: Joi.object({
+    thread_id: Joi.string().required(),
+    run_id: Joi.string().required(),
+    limit: Joi.number().min(1).max(100),
+    order: Joi.string().valid('asc', 'desc'),
+    after: Joi.string(),
+    before: Joi.string()
+  }),
+  retrieveRunSchema: Joi.object({
+    thread_id: Joi.string().required(),
+    run_id: Joi.string().required()
+  }),
+  retrieveRunStepSchema: Joi.object({
+    thread_id: Joi.string().required(),
+    run_id: Joi.string().required(),
+    step_id: Joi.string().required()
+  }),
+  modifyRunSchema: Joi.object({
+    thread_id: Joi.string().required(),
+    run_id: Joi.string().required(),
+    metadata: Joi.object()
+  }),
+  cancelRunSchema: Joi.object({
+    thread_id: Joi.string().required(),
+    run_id: Joi.string().required()
   })
 };
 
