@@ -44,6 +44,9 @@ const joiSchema = {
   createThreadSchema: Joi.object({
     messages: Joi.array().items(_joiSubSchema.messageSchema),
     metadata: Joi.object()
+  }),
+  retrieveThreadSchema: Joi.object({
+    thread_id: Joi.string().required()
   })
 };
 

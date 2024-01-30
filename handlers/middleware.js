@@ -26,7 +26,7 @@ class Middleware {
     const {
       jobType, model, name, description, instructions, tools, file_ids, metadata, messages,
       limit, order, after, before,
-      assistantId
+      assistantId, threadId
     } = REST_MODE ? req.body :
         ainizeAdmin.internal.getDataFromServiceRequest(req).requestData;
 
@@ -60,7 +60,13 @@ class Middleware {
       case JOB_TYPES.CREATE_THREAD:
         validationResult = joiSchema.createThreadSchema.validate({
           messages, metadata
-        })
+        });
+        break;
+      case JOB_TYPES.RETRIEVE_THREAD:
+        validationResult = joiSchema.retrieveThreadSchema.validate({
+          thread_id: threadId
+        });
+        break;
     };
 
     if (!validationResult.error) {
