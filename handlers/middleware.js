@@ -25,8 +25,9 @@ class Middleware {
   static joiValidate = (req, res, next) => {
     const {
       jobType, model, name, description, instructions, tools, file_ids, metadata, messages,
+      role, content,
       limit, order, after, before,
-      assistantId, threadId
+      assistantId, threadId, messageId
     } = REST_MODE ? req.body :
         ainizeAdmin.internal.getDataFromServiceRequest(req).requestData;
 
@@ -75,6 +76,26 @@ class Middleware {
       case JOB_TYPES.DELETE_THREAD:
         validationResult = joiSchema.deleteThreadSchema.validate({
           thread_id: threadId
+        });
+        break;
+      case JOB_TYPES.CREATE_MESSAGE:
+        validationResult = joiSchema.createMessageSchema.validate({
+          thread_id: threadId, role, content, file_ids, metadata
+        });
+        break;
+      case JOB_TYPES.LIST_MESSAGES:
+        validationResult = joiSchema.listMessagesSchema.validate({
+          thread_id: threadId, limit, order, after, before
+        });
+        break;
+      case JOB_TYPES.RETRIEVE_MESSAGE:
+        validationResult = joiSchema.retrieveMessageSchema.validate({
+          thread_id: threadId, message_id: messageId
+        });
+        break;
+      case JOB_TYPES.MODIFY_MESSAGE:
+        validationResult = joiSchema.modifyMessageSchema.validate({
+          thread_id: threadId, message_id: messageId, metadata
         });
         break;
     };

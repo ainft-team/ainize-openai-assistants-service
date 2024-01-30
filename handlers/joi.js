@@ -54,6 +54,29 @@ const joiSchema = {
   deleteThreadSchema: Joi.object({
     thread_id: Joi.string().required()
   }),
+  createMessageSchema: Joi.object({
+    thread_id: Joi.string().required(),
+    role: Joi.string().valid('user').required(),
+    content: Joi.string().required(),
+    file_ids: Joi.array().max(10),
+    metadata: Joi.object()
+  }),
+  listMessagesSchema: Joi.object({
+    thread_id: Joi.string().required(),
+    limit: Joi.number().min(1).max(100),
+    order: Joi.string().valid('asc', 'desc'),
+    after: Joi.string(),
+    before: Joi.string()
+  }),
+  retrieveMessageSchema: Joi.object({
+    thread_id: Joi.string().required(),
+    message_id: Joi.string().required(),
+  }),
+  modifyMessageSchema: Joi.object({
+    thread_id: Joi.string().required(),
+    message_id: Joi.string().required(),
+    metadata: Joi.object()
+  })
 };
 
 module.exports = {
