@@ -25,7 +25,8 @@ class Middleware {
   static joiValidate = (req, res, next) => {
     const {
       jobType, model, name, description, instructions, tools, file_ids, metadata,
-      limit, order, after, before
+      limit, order, after, before,
+      assistantId
     } = REST_MODE ? req.body :
         ainizeAdmin.internal.getDataFromServiceRequest(req).requestData;
 
@@ -41,6 +42,10 @@ class Middleware {
           limit, order, after, before
         });
         break;
+      case JOB_TYPES.RETRIEVE_ASSISTANT:
+        validationResult = joiSchema.retrieveAssistantSchema.validate({
+          assistant_id: assistantId
+        });
     };
 
     if (!validationResult.error) {

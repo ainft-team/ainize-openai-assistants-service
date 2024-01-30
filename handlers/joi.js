@@ -16,6 +16,9 @@ const joiSchema = {
     after: Joi.string(),
     before: Joi.string()
   }),
+  retrieveAssistantSchema: Joi.object({
+    assistant_id: Joi.string().required()
+  }),
 };
 
 module.exports = {
