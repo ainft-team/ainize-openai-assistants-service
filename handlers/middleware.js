@@ -46,8 +46,12 @@ class Middleware {
         validationResult = joiSchema.retrieveAssistantSchema.validate({
           assistant_id: assistantId
         });
+        break;
       case JOB_TYPES.MODIFY_ASSISTANT:
-        validationResult = joiSchema
+        validationResult = joiSchema.modifyAssistantSchema.validate({
+          assistant_id: assistantId, model, name, description, instructions, tools, file_ids, metadata
+        });
+        break;
     };
 
     if (!validationResult.error) {
