@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // TODO(minsu): Add Joi
-app.post('/service', Middleware.classifyJobType, OpenaiAinizeHandler.service);
+app.post('/service', Middleware.classifyJobType, Middleware.joiValidate, OpenaiAinizeHandler.service);
 app.post('/deposit', OpenaiAinizeHandler.deposit);
 
 // NOTE(minsu): needs discussion about the structure below
