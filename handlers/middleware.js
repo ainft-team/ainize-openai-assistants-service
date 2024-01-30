@@ -67,6 +67,16 @@ class Middleware {
           thread_id: threadId
         });
         break;
+      case JOB_TYPES.MODIFY_THREAD:
+        validationResult = joiSchema.modifyThreadSchema.validate({
+          metadata
+        });
+        break;
+      case JOB_TYPES.DELETE_THREAD:
+        validationResult = joiSchema.deleteThreadSchema.validate({
+          thread_id: threadId
+        });
+        break;
     };
 
     if (!validationResult.error) {

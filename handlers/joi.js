@@ -47,7 +47,13 @@ const joiSchema = {
   }),
   retrieveThreadSchema: Joi.object({
     thread_id: Joi.string().required()
-  })
+  }),
+  modifyThreadSchema: Joi.object({
+    metadata: Joi.object()
+  }),
+  deleteThreadSchema: Joi.object({
+    thread_id: Joi.string().required()
+  }),
 };
 
 module.exports = {
