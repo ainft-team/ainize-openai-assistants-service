@@ -19,6 +19,16 @@ const joiSchema = {
   retrieveAssistantSchema: Joi.object({
     assistant_id: Joi.string().required()
   }),
+  modifyAssistantSchema: Joi.object({
+    assistant_id: Joi.string().required(),
+    model: Joi.string().required(),
+    name: Joi.string().max(256),
+    description: Joi.string().max(512),
+    instructions: Joi.string().max(32768),
+    tools: Joi.array().max(128),
+    file_ids: Joi.array().max(20),
+    metadata: Joi.object()
+  }),
 };
 
 module.exports = {
