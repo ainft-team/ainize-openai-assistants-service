@@ -9,7 +9,13 @@ const joiSchema = {
     tools: Joi.array().max(128),
     file_ids: Joi.array().max(20),
     metadata: Joi.object()
-  })
+  }),
+  listAssistantsSchema: Joi.object({
+    limit: Joi.number().min(1).max(100),
+    order: Joi.string().valid('asc', 'desc'),
+    after: Joi.string(),
+    before: Joi.string()
+  }),
 };
 
 module.exports = {
