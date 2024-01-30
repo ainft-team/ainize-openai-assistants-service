@@ -24,7 +24,7 @@ class Middleware {
 
   static joiValidate = (req, res, next) => {
     const {
-      jobType, model, name, description, instructions, tools, file_ids, metadata,
+      jobType, model, name, description, instructions, tools, file_ids, metadata, messages,
       limit, order, after, before,
       assistantId
     } = REST_MODE ? req.body :
@@ -57,6 +57,10 @@ class Middleware {
           assistant_id: assistantId
         });
         break;
+      case JOB_TYPES.CREATE_THREAD:
+        validationResult = joiSchema.createThreadSchema.validate({
+          messages, metadata
+        })
     };
 
     if (!validationResult.error) {

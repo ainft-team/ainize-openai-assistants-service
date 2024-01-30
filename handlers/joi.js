@@ -1,5 +1,14 @@
 const Joi = require('joi');
 
+const _joiSubSchema = {
+  messageSchema: Joi.object({
+    role: Joi.string().valid('user').required(),
+    content: Joi.string().required(),
+    file_ids: Joi.array().max(10),
+    metadata: Joi.object()
+  })
+};
+
 const joiSchema = {
   createAssistantSchema: Joi.object({
     model: Joi.string().required(),
@@ -32,6 +41,10 @@ const joiSchema = {
   deleteAssistantSchema: Joi.object({
     assistant_id: Joi.string().required()
   }),
+  createThreadSchema: Joi.object({
+    messages: Joi.array().items(_joiSubSchema.messageSchema),
+    metadata: Joi.object()
+  })
 };
 
 module.exports = {
