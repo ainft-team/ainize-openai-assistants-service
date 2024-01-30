@@ -52,6 +52,11 @@ class Middleware {
           assistant_id: assistantId, model, name, description, instructions, tools, file_ids, metadata
         });
         break;
+      case JOB_TYPES.DELETE_ASSISTANT:
+        validationResult = joiSchema.deleteAssistantSchema.validate({
+          assistant_id: assistantId
+        });
+        break;
     };
 
     if (!validationResult.error) {

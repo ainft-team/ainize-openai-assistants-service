@@ -29,6 +29,9 @@ const joiSchema = {
     file_ids: Joi.array().max(20),
     metadata: Joi.object()
   }),
+  deleteAssistantSchema: Joi.object({
+    assistant_id: Joi.string().required()
+  }),
 };
 
 module.exports = {
