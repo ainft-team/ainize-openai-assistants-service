@@ -146,7 +146,7 @@ class Middleware {
       next();
       return;
     } else {
-      return ainizeAdmin.middleware.blockchainTriggerFilter;
+      return ainizeAdmin.middleware.blockchainTriggerFilter(req, res, next);
     }
   }
 };
