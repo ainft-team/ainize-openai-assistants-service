@@ -30,7 +30,7 @@ const joiSchema = {
   }),
   modifyAssistantSchema: Joi.object({
     assistant_id: Joi.string().required(),
-    model: Joi.string().required(),
+    model: Joi.string(),
     name: Joi.string().max(256),
     description: Joi.string().max(512),
     instructions: Joi.string().max(32768),
