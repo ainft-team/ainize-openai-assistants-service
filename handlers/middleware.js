@@ -141,8 +141,13 @@ class Middleware {
     }
   };
 
-  static preventMultipleTriggering = () => {
-    return ainizeAdmin.middleware.blockchainTriggerFilter;
+  static preventMultipleTriggering = (req, res, next) => {
+    if (REST_MODE) {
+      next();
+      return;
+    } else {
+      return ainizeAdmin.middleware.blockchainTriggerFilter;
+    }
   }
 };
 
