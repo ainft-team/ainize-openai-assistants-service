@@ -66,7 +66,7 @@ class OpenaiAinizeHandler {
       });
 
       if (response?.status === 200) {
-        OpenaiAinizeHandler._postProcessFinalResponseData(jobType, response);
+        OpenaiAinizeHandler._postProcessFinalResponseData(jobType, response.data);
       } else {
         throw ErrorUtil.setCustomError(response.status, response.message);
       }

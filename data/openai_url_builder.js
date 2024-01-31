@@ -22,7 +22,7 @@ class OpenaiUrlBuilder {
   };
 
   static messageBaseWithMessageIdUrl = ({ threadId, messageId }) => {
-    return `${OpenaiUrlBuilder.messageBaseUrl([threadId])}/${messageId}`;
+    return `${OpenaiUrlBuilder.messageBaseUrl({ threadId })}/${messageId}`;
   };
 
   static runBaseUrl = ({ threadId }) => {
