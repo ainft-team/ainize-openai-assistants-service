@@ -141,7 +141,7 @@ class Middleware {
     }
   };
 
-  static preventMultipleTriggering = (req, res, next) => {
+  static preventMultipleTriggering = () => {
     return ainizeAdmin.middleware.blockchainTriggerFilter;
   }
 };
