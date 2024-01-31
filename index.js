@@ -18,10 +18,6 @@ app.use(express.json());
 app.post('/service', Middleware.classifyJobType, Middleware.joiValidate, Middleware.preventMultipleTriggering, OpenaiAinizeHandler.service);
 app.post('/deposit', OpenaiAinizeHandler.deposit);
 
-// NOTE(minsu): needs discussion about the structure below
-app.post('/credit/charge', OpenaiAinizeHandler.chargeAinizeCredit);
-app.post('/credit/get', OpenaiAinizeHandler.getAinizeCredit);
-
 app.get('/health', (req, res, next) => {
   try {
     res.status(200).json({ data: 'ok' });

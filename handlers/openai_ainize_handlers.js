@@ -77,7 +77,7 @@ class OpenaiAinizeHandler {
     } catch (error) {
       next(ErrorUtil.setCustomError(error.status, error.message));
     }
-  }
+  };
 
   static deposit = (req, res, next) => {
     try {
@@ -85,24 +85,7 @@ class OpenaiAinizeHandler {
     } catch (error) {
       throw ErrorUtil.setCustomError(500, error);
     }
-  }
-
-  // NOTE(minsu): below will be deprecated soon.
-  static chargeAinizeCredit = (req, res, next) => {
-    try {
-      res.status(200).json(Utils.serializeMessage('ok', { hello: 'world' }));
-    } catch (error) {
-      throw ErrorUtil.setCustomError(500, error);
-    }
-  }
-
-  static getAinizeCredit = (req, res, next) => {
-    try {
-      res.status(200).json(Utils.serializeMessage('ok', { hello: 'world' }));
-    } catch (error) {
-      throw ErrorUtil.setCustomError(500, error);
-    }
-  }
+  };
 }
 
 module.exports = {
