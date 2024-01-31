@@ -1,4 +1,4 @@
-const Joi = require('joi');
+// const Ainize = require("@ainize-team/ainize-js").default;
 
 const { ErrorUtil } = require('./error');
 const { JOB_TYPES } = require('../constants');
@@ -141,6 +141,10 @@ class Middleware {
       throw ErrorUtil.setCustomError(422,
           `joi req validation error(${validationResult.error.details[0].message}).`);
     }
+  };
+
+  static preventMultipleTriggering = (req, res, next) => {
+    // return Ainize.middleware.blockchainTriggerFilter;
   }
 };
 
