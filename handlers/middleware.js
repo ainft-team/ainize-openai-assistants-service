@@ -1,5 +1,3 @@
-const Joi = require('joi');
-
 const { ErrorUtil } = require('./error');
 const { JOB_TYPES } = require('../constants');
 const { ainizeAdmin } = require('../ainize');
@@ -140,6 +138,15 @@ class Middleware {
     } else {
       throw ErrorUtil.setCustomError(422,
           `joi req validation error(${validationResult.error.details[0].message}).`);
+    }
+  };
+
+  static preventMultipleTriggering = (req, res, next) => {
+    if (REST_MODE) {
+      next();
+      return;
+    } else {
+      return ainizeAdmin.middleware.blockchainTriggerFilter(req, res, next);
     }
   }
 };
