@@ -1,5 +1,3 @@
-// const Ainize = require("@ainize-team/ainize-js").default;
-
 const { ErrorUtil } = require('./error');
 const { JOB_TYPES } = require('../constants');
 const { ainizeAdmin } = require('../ainize');
@@ -144,7 +142,7 @@ class Middleware {
   };
 
   static preventMultipleTriggering = (req, res, next) => {
-    // return Ainize.middleware.blockchainTriggerFilter;
+    return ainizeAdmin.middleware.blockchainTriggerFilter;
   }
 };
 
