@@ -46,6 +46,15 @@ class OpenaiAinizeHandler {
       case JOB_TYPES.LIST_MESSAGES:
         Utils.fromArrayToObjectFromMessageList(responseData);
         break;
+      case JOB_TYPES.CREATE_RUN:
+      case JOB_TYPES.RETRIEVE_RUN:
+      case JOB_TYPES.MODIFY_RUN:
+        Utils.TrimUnnecessaryDataForResponseData(responseData);
+        break;
+      case JOB_TYPES.LIST_RUNS:
+      case JOB_TYPES.LIST_RUN_STEPS:
+        Utils.fromArrayToObjectWithTrimmingData(responseData);
+        break;
     }
   };
 
