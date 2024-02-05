@@ -26,16 +26,12 @@ class OpenaiAinizeHandler {
   static _postProcessFinalResponseData = (jobType, responseData) => {
     switch (jobType) {
       case JOB_TYPES.CREATE_ASSISTANT:
-        Utils.TrimUnnecessaryDataForResponseData(responseData);
-        break;
       case JOB_TYPES.RETRIEVE_ASSISTANT:
+      case JOB_TYPES.MODIFY_ASSISTANT:
         Utils.TrimUnnecessaryDataForResponseData(responseData);
         break;
       case JOB_TYPES.LIST_ASSISTANTS:
         Utils.fromArrayToObjectWithTrimmingData(responseData);
-        break;
-      case JOB_TYPES.MODIFY_ASSISTANT:
-        Utils.TrimUnnecessaryDataForResponseData(responseData);
         break;
     }
   };
