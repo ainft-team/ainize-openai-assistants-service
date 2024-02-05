@@ -82,8 +82,7 @@ class OpenaiAinizeHandler {
   static deposit = async (req, res, next) => {
     try {
       const result = await ainizeAdmin.internal.handleDeposit(req);
-      console.log(result);
-      res.status(200).json(Utils.serializeMessage(`deposit ok`, result));
+      res.status(200).json(Utils.serializeMessage('deposit ok', result));
     } catch (error) {
       next(ErrorUtil.setCustomError(error.status, error.message));
     }
