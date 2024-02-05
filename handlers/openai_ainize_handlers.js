@@ -26,16 +26,34 @@ class OpenaiAinizeHandler {
   static _postProcessFinalResponseData = (jobType, responseData) => {
     switch (jobType) {
       case JOB_TYPES.CREATE_ASSISTANT:
-        Utils.TrimUnnecessaryDataForResponseData(responseData);
-        break;
       case JOB_TYPES.RETRIEVE_ASSISTANT:
+      case JOB_TYPES.MODIFY_ASSISTANT:
         Utils.TrimUnnecessaryDataForResponseData(responseData);
         break;
       case JOB_TYPES.LIST_ASSISTANTS:
         Utils.fromArrayToObjectWithTrimmingData(responseData);
         break;
-      case JOB_TYPES.MODIFY_ASSISTANT:
+      case JOB_TYPES.CREATE_THREAD:
+      case JOB_TYPES.RETRIEVE_THREAD:
+      case JOB_TYPES.MODIFY_THREAD:
+        Utils.TrimEmptyMetadataForResponseData(responseData);
+        break;
+      case JOB_TYPES.CREATE_MESSAGE:
+      case JOB_TYPES.RETRIEVE_MESSAGE:
+      case JOB_TYPES.MODIFY_MESSAGE:
+        Utils.fromArrayToObjectWithinMessageContent(responseData);
+        break;
+      case JOB_TYPES.LIST_MESSAGES:
+        Utils.fromArrayToObjectWithinMessageList(responseData);
+        break;
+      case JOB_TYPES.CREATE_RUN:
+      case JOB_TYPES.RETRIEVE_RUN:
+      case JOB_TYPES.MODIFY_RUN:
         Utils.TrimUnnecessaryDataForResponseData(responseData);
+        break;
+      case JOB_TYPES.LIST_RUNS:
+      case JOB_TYPES.LIST_RUN_STEPS:
+        Utils.fromArrayToObjectWithTrimmingData(responseData);
         break;
     }
   };
