@@ -21,6 +21,24 @@ class Utils {
     data.data.forEach(v => Utils.TrimUnnecessaryDataForResponseData(v));
     data.data = { ...data.data };
   }
+
+  static fromArrayToObjectFromMessageContent(data) {
+    data.content.forEach(v => {
+      if (_.isEmpty(v.text.annotations)) {
+        delete v.text.annotations;
+      } else {
+        v.text.annotations = { ...v.text.annotations };
+      }
+    });
+    data.content = { ...data.content };
+    delete data.file_ids;
+    Utils.TrimEmptyMetadataForResponseData(data);
+  }
+
+  static fromArrayToObjectFromMessageList(data) {
+    data.data.forEach(v => Utils.fromArrayToObjectFromMessageContent(v));
+    data.data = { ...data.data };
+  }
 }
 
 module.exports = {

@@ -38,6 +38,14 @@ class OpenaiAinizeHandler {
       case JOB_TYPES.MODIFY_THREAD:
         Utils.TrimEmptyMetadataForResponseData(responseData);
         break;
+      case JOB_TYPES.CREATE_MESSAGE:
+      case JOB_TYPES.RETRIEVE_MESSAGE:
+      case JOB_TYPES.MODIFY_MESSAGE:
+        Utils.fromArrayToObjectFromMessageContent(responseData);
+        break;
+      case JOB_TYPES.LIST_MESSAGES:
+        Utils.fromArrayToObjectFromMessageList(responseData);
+        break;
     }
   };
 
