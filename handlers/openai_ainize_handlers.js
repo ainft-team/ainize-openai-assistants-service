@@ -79,11 +79,13 @@ class OpenaiAinizeHandler {
     }
   };
 
-  static deposit = (req, res, next) => {
+  static deposit = async (req, res, next) => {
     try {
-      res.status(200).json(Utils.serializeMessage('ok', { hello: 'world' }));
+      const result = await ainizeAdmin.internal.handleDeposit(req);
+      console.log(result);
+      res.status(200).json(Utils.serializeMessage(`deposit ok`, result));
     } catch (error) {
-      throw ErrorUtil.setCustomError(500, error);
+      next(ErrorUtil.setCustomError(error.status, error.message));
     }
   };
 }

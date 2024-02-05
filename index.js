@@ -16,7 +16,7 @@ app.use(express.json());
 
 // TODO(minsu): Add Joi
 app.post('/service', Middleware.classifyJobType, Middleware.joiValidate, Middleware.preventMultipleTriggering, OpenaiAinizeHandler.service);
-app.post('/deposit', OpenaiAinizeHandler.deposit);
+app.post('/deposit', Middleware.preventMultipleTriggering, OpenaiAinizeHandler.deposit);
 
 app.get('/health', (req, res, next) => {
   try {
