@@ -5,12 +5,16 @@ class Utils {
     return { status: status, data: data };
   }
 
-  static TrimUnnecessaryDataForResponseData(data) {
-    delete data.tools;
-    delete data.file_ids;
+  static TrimEmptyMetadataForResponseData(data) {
     if (data.metadata && _.isEmpty(data.metadata)) {
       delete data.metadata;
     }
+  }
+
+  static TrimUnnecessaryDataForResponseData(data) {
+    delete data.tools;
+    delete data.file_ids;
+    Utils.TrimEmptyMetadataForResponseData(data);
   }
 
   static fromArrayToObjectWithTrimmingData(data) {

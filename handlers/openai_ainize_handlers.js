@@ -33,6 +33,11 @@ class OpenaiAinizeHandler {
       case JOB_TYPES.LIST_ASSISTANTS:
         Utils.fromArrayToObjectWithTrimmingData(responseData);
         break;
+      case JOB_TYPES.CREATE_THREAD:
+      case JOB_TYPES.RETRIEVE_THREAD:
+      case JOB_TYPES.MODIFY_THREAD:
+        Utils.TrimEmptyMetadataForResponseData(responseData);
+        break;
     }
   };
 
