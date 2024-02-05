@@ -22,7 +22,7 @@ class Utils {
     data.data = { ...data.data };
   }
 
-  static fromArrayToObjectFromMessageContent(data) {
+  static fromArrayToObjectWithinMessageContent(data) {
     data.content.forEach(v => {
       if (_.isEmpty(v.text.annotations)) {
         delete v.text.annotations;
@@ -35,8 +35,8 @@ class Utils {
     Utils.TrimEmptyMetadataForResponseData(data);
   }
 
-  static fromArrayToObjectFromMessageList(data) {
-    data.data.forEach(v => Utils.fromArrayToObjectFromMessageContent(v));
+  static fromArrayToObjectWithinMessageList(data) {
+    data.data.forEach(v => Utils.fromArrayToObjectWithinMessageContent(v));
     data.data = { ...data.data };
   }
 }

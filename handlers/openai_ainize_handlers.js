@@ -41,10 +41,10 @@ class OpenaiAinizeHandler {
       case JOB_TYPES.CREATE_MESSAGE:
       case JOB_TYPES.RETRIEVE_MESSAGE:
       case JOB_TYPES.MODIFY_MESSAGE:
-        Utils.fromArrayToObjectFromMessageContent(responseData);
+        Utils.fromArrayToObjectWithinMessageContent(responseData);
         break;
       case JOB_TYPES.LIST_MESSAGES:
-        Utils.fromArrayToObjectFromMessageList(responseData);
+        Utils.fromArrayToObjectWithinMessageList(responseData);
         break;
       case JOB_TYPES.CREATE_RUN:
       case JOB_TYPES.RETRIEVE_RUN:
