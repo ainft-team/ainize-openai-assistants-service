@@ -14,7 +14,6 @@ const port = process.env.PORT || 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// TODO(minsu): Add Joi
 app.post('/service', Middleware.classifyJobType, Middleware.joiValidate, Middleware.preventMultipleTriggering, OpenaiAinizeHandler.service);
 app.post('/deposit', Middleware.preventMultipleTriggering, OpenaiAinizeHandler.deposit);
 
