@@ -3,7 +3,7 @@ const Ainize = require("@ainize-team/ainize-js").default;
 const { AINIZE_PRIVATE_KEY } = require('../env');
 
 const deployerPrivKey = AINIZE_PRIVATE_KEY;
-const userPrivKey = AINIZE_PRIVATE_KEY;
+const userPrivKey = process.env.USER_PRIVATE_KEY;
 const serviceName = process.env.SERVICE_NAME;
 const serviceUrl = process.env.SERVICE_URL;
 
@@ -59,7 +59,7 @@ const processArguments = async () => {
       break;
     case 'deposit':
       // NOTE(from ainize team): no need to deposit if service is deployed with minCost 0
-      await deposit(30);
+      await deposit(10);
       break;
     case 'request':
       const requestData = { jobType: 'list_assistants', limit: 2 };

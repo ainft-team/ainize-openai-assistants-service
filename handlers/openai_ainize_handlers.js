@@ -77,32 +77,16 @@ class OpenaiAinizeHandler {
     } catch (error) {
       next(ErrorUtil.setCustomError(error.status, error.message));
     }
-  }
+  };
 
-  static deposit = (req, res, next) => {
+  static deposit = async (req, res, next) => {
     try {
-      res.status(200).json(Utils.serializeMessage('ok', { hello: 'world' }));
+      const result = await ainizeAdmin.internal.handleDeposit(req);
+      res.status(200).json(Utils.serializeMessage('deposit ok', result));
     } catch (error) {
-      throw ErrorUtil.setCustomError(500, error);
+      next(ErrorUtil.setCustomError(error.status, error.message));
     }
-  }
-
-  // NOTE(minsu): below will be deprecated soon.
-  static chargeAinizeCredit = (req, res, next) => {
-    try {
-      res.status(200).json(Utils.serializeMessage('ok', { hello: 'world' }));
-    } catch (error) {
-      throw ErrorUtil.setCustomError(500, error);
-    }
-  }
-
-  static getAinizeCredit = (req, res, next) => {
-    try {
-      res.status(200).json(Utils.serializeMessage('ok', { hello: 'world' }));
-    } catch (error) {
-      throw ErrorUtil.setCustomError(500, error);
-    }
-  }
+  };
 }
 
 module.exports = {
