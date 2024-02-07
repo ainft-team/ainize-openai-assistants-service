@@ -12,12 +12,12 @@ class ErrorHandler {
     sendSlackMsg(err.message);
     if (!REST_MODE) ainizeAdmin.internal.handleRequest(req, 0, AINIZE_STATUS.FAILURE, err.message);
     return res.status(statusCode).json(
-      ErrorUtil.serializeErrorMessage(statusCode, err.message, err, redirectPath));
+      ErrorUtil.serializeErrorMessage(statusCode, err.message, err.errorOriginObject, redirectPath));
   }
 }
 
 class ErrorUtil {
-  static serializeErrorMessage(status, message, errorOriginObject, redirectPath = null) {
+  static serializeErrorMessage(status, message, errorOriginObject = null, redirectPath = null) {
     return { status, message, errorOriginObject, redirectPath };
   }
 
