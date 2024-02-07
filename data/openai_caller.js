@@ -8,7 +8,7 @@ const callOpenai = async ({ method, url, body }) => {
     url: url,
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Bearer " + OPENAI_API_KEY,
+      "Authorization": "Bearer " + OPENAI_API_KEY,
       "OpenAI-Beta": "assistants=v1"
     },
     data: body

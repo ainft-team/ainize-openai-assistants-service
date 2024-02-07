@@ -86,14 +86,14 @@ class OpenaiAinizeHandler {
       if (response?.status === 200) {
         OpenaiAinizeHandler._postProcessFinalResponseData(jobType, response.data);
       } else {
-        throw ErrorUtil.setCustomError(response.status, response.message);
+        throw ErrorUtil.setCustomError(response.status, response.message, response);
       }
 
       // FIXME(minsu): this is tempolar approach.
       if (!REST_MODE) await ainizeAdmin.internal.handleRequest(req, 0, AINIZE_STATUS.SUCCESS, response.data);
       res.status(200).json(Utils.serializeMessage(`${jobType} ok`, response.data));
     } catch (error) {
-      next(ErrorUtil.setCustomError(error.status, error.message));
+      next(ErrorUtil.setCustomError(error.status, error.message, error.errorOriginObject));
     }
   };
 
@@ -102,7 +102,7 @@ class OpenaiAinizeHandler {
       const result = await ainizeAdmin.internal.handleDeposit(req);
       res.status(200).json(Utils.serializeMessage('deposit ok', result));
     } catch (error) {
-      next(ErrorUtil.setCustomError(error.status, error.message));
+      next(ErrorUtil.setCustomError(500, error.message));
     }
   };
 }
