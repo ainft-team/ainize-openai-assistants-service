@@ -9,7 +9,7 @@ class ErrorHandler {
     const redirectPath = err.redirectPath || null;
     // FIXME(minsu): This will be removed when it is stablized. This console log is for debugging on the container.
     console.log(`error: ${err.message}`);
-    sendSlackMsg(err.message);
+    sendSlackMsg(err.message, err.errorOriginObject);
     if (!REST_MODE) ainizeAdmin.internal.handleRequest(req, 0, AINIZE_STATUS.FAILURE, err.message);
     return res.status(statusCode).json(
       ErrorUtil.serializeErrorMessage(statusCode, err.message, err.errorOriginObject, redirectPath));
