@@ -21,7 +21,7 @@ app.get('/health', (req, res, next) => {
   try {
     res.status(200).json({ data: 'ok' });
   } catch (error) {
-    throw ErrorUtil.setCustomError(500, error);
+    throw ErrorUtil.setCustomError(500, error.message);
   }
 });
 

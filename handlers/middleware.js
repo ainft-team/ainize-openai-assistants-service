@@ -16,7 +16,7 @@ class Middleware {
         return;
       }
     } catch (error) {
-      throw ErrorUtil.setCustomError(500, error);
+      throw ErrorUtil.setCustomError(500, error.message);
     };
   };
 
@@ -137,7 +137,8 @@ class Middleware {
       return;
     } else {
       throw ErrorUtil.setCustomError(422,
-          `joi req validation error(${validationResult.error.details[0].message}).`);
+          `joi req validation error(${validationResult.error.details[0].message}).`,
+          validationResult);
     }
   };
 
