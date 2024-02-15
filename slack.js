@@ -11,7 +11,7 @@ const sendSlackMsg = (message, errObject) => {
       channel: SLACK_CHANNEL_NAME,
       icon_emoji: ':dragon:',
       username: 'AINFT dragon',
-      text: `${message}` + (errObject ? `\n\`\`\` ${JSON.stringify(errObject)} \`\`\``: ''),
+      text: `${message}` + (errObject ? `\n\`\`\` ${JSON.stringify(errObject, null, 2)} \`\`\``: ''),
     }, (err) => {
       if (err)
         logger.error('Failed to send a slack message:', err);
