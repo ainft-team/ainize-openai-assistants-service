@@ -71,7 +71,7 @@ const processArguments = async () => {
         "jobType": "delete_assistant",
         "assistantId": "asst_GTOQjV4pnd9IRZ7lT0MNsr9P"
       }
-      await request(requestData);
+      await request(retrieveData);
       break;
     default:
       throw new Error(`Wrong job(${job}) has been specified. `);
