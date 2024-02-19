@@ -36,7 +36,7 @@ class OpenaiAinizeHandler {
       case JOB_TYPES.CREATE_THREAD:
       case JOB_TYPES.RETRIEVE_THREAD:
       case JOB_TYPES.MODIFY_THREAD:
-        Utils.TrimEmptyMetadataForResponseData(responseData);
+        Utils.TrimUnnecessaryDataForResponseData(responseData);
         break;
       case JOB_TYPES.CREATE_MESSAGE:
       case JOB_TYPES.RETRIEVE_MESSAGE:
@@ -90,7 +90,7 @@ class OpenaiAinizeHandler {
       }
 
       // FIXME(minsu): this is tempolar approach.
-      if (!REST_MODE) await ainizeAdmin.internal.handleRequest(req, 0, AINIZE_STATUS.SUCCESS, response.data);
+      if (!REST_MODE) await ainizeAdmin.internal.handleRequest(req, 0.1, AINIZE_STATUS.SUCCESS, response.data);
       res.status(200).json(Utils.serializeMessage(`${jobType} ok`, response.data));
     } catch (error) {
       next(ErrorUtil.setCustomError(error.status, error.message, error.errorOriginObject));
