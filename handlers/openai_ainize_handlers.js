@@ -36,7 +36,7 @@ class OpenaiAinizeHandler {
       case JOB_TYPES.CREATE_THREAD:
       case JOB_TYPES.RETRIEVE_THREAD:
       case JOB_TYPES.MODIFY_THREAD:
-        Utils.TrimEmptyMetadataForResponseData(responseData);
+        Utils.TrimUnnecessaryDataForResponseData(responseData);
         break;
       case JOB_TYPES.CREATE_MESSAGE:
       case JOB_TYPES.RETRIEVE_MESSAGE:

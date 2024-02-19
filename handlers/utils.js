@@ -14,6 +14,7 @@ class Utils {
   static TrimUnnecessaryDataForResponseData(data) {
     delete data.tools;
     delete data.file_ids;
+    delete data.tool_resources;
     Utils.TrimEmptyMetadataForResponseData(data);
   }
 
