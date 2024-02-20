@@ -2,7 +2,7 @@
 const { ErrorUtil } = require('./error');
 const { Utils } = require('./utils');
 const { getRequestMaterialsFromJobType, callOpenai } = require('../data');
-const { ainizeAdmin } = require('../ainize');
+const { AinizeUtils } = require('./ainizeUtils');
 const { AINIZE_STATUS, JOB_TYPES } = require('../constants');
 const { REST_MODE } = require('../env');
 
@@ -64,7 +64,7 @@ class OpenaiAinizeHandler {
         jobType, model, name, description, instructions, metadata, role, content,
         assistantId, threadId, messageId, runId, stepId,
         limit, order, after, before
-      } = REST_MODE ? req.body : ainizeAdmin.internal.getDataFromServiceRequest(req).requestData;
+      } = REST_MODE ? req.body : AinizeUtils.getDataFromServiceRequest(req);
       const {
         requestMethod,
         getRequestUrlFunction,
@@ -89,8 +89,9 @@ class OpenaiAinizeHandler {
         throw ErrorUtil.setCustomError(response.status, response.message, response);
       }
 
-      // FIXME(minsu): this is tempolar approach.
-      if (!REST_MODE) await ainizeAdmin.internal.handleRequest(req, 0.1, AINIZE_STATUS.SUCCESS, response.data);
+      const ainizeResponse = await AinizeUtils.handleRequest({
+          req, amount: 0.1, ainizeStatus: AINIZE_STATUS.SUCCESS, responseData: response.data });
+      console.log(ainizeResponse);
       res.status(200).json(Utils.serializeMessage(`${jobType} ok`, response.data));
     } catch (error) {
       next(ErrorUtil.setCustomError(error.status, error.message, error.errorOriginObject));
@@ -99,7 +100,7 @@ class OpenaiAinizeHandler {
 
   static deposit = async (req, res, next) => {
     try {
-      const result = await ainizeAdmin.internal.handleDeposit(req);
+      const result = await AinizeUtils.handleDeposit(req);
       res.status(200).json(Utils.serializeMessage('deposit ok', result));
     } catch (error) {
       next(ErrorUtil.setCustomError(500, error.message));
