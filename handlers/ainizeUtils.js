@@ -1,4 +1,5 @@
 const { ainizeAdmin } = require('../ainize');
+const { REST_MODE } = require('../env');
 
 class AinizeUtils {
   static getDataFromServiceRequest = (req) => {
