@@ -63,6 +63,9 @@ const processArguments = async () => {
       break;
     case 'request':
       const requestData = { jobType: 'list_assistants', limit: 2 };
+      const createThread = {
+        jobType: "create_thread"
+      };
       const retrieveData = {
         jobType: "retrieve_assistant",
         assistantId: "asst_IqEmckNBdn32eyF7qXEczTYz"
@@ -71,7 +74,7 @@ const processArguments = async () => {
         "jobType": "delete_assistant",
         "assistantId": "asst_GTOQjV4pnd9IRZ7lT0MNsr9P"
       }
-      await request(requestData);
+      await request(createThread);
       break;
     default:
       throw new Error(`Wrong job(${job}) has been specified. `);
