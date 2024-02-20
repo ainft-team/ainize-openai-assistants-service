@@ -3,7 +3,7 @@ const { REST_MODE } = require('../env');
 
 class AinizeUtils {
   static getDataFromServiceRequest = (req) => {
-    const request = ainizeAdmin.internal.getDataFromServiceRequest(req).requestData;
+    const request = ainizeAdmin.internal.getDataFromServiceRequest(req);
     return request?.requestData;
   }
 
