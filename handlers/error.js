@@ -1,6 +1,5 @@
-const { ainizeAdmin } = require('../ainize');
+const { AinizeUtils } = require('./ainizeUtils');
 const { AINIZE_STATUS } = require('../constants');
-const { REST_MODE } = require('../env');
 const { sendSlackMsg } = require('../slack');
 
 class ErrorHandler {
@@ -10,7 +9,8 @@ class ErrorHandler {
     // FIXME(minsu): This will be removed when it is stablized. This console log is for debugging on the container.
     console.log(`error: ${err.message} with object(${JSON.stringify(err.errorOriginObject, null, 2)})`);
     sendSlackMsg(err.message, err.errorOriginObject);
-    if (!REST_MODE) ainizeAdmin.internal.handleRequest(req, 0, AINIZE_STATUS.FAILURE, err.message);
+    AinizeUtils.handleRequest({
+        req, amount: 0, ainizeStatus: AINIZE_STATUS.FAILURE, responseData: err.message });
     return res.status(statusCode).json(
       ErrorUtil.serializeErrorMessage(statusCode, err.message, err.errorOriginObject, redirectPath));
   }
