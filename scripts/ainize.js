@@ -8,10 +8,10 @@ const serviceName = process.env.SERVICE_NAME;
 const serviceUrl = process.env.SERVICE_URL;
 
 const deployService = async () => {
-  const ainizeAdmin = new Ainize(0);
-  await ainizeAdmin.login(deployerPrivKey)
-  const adminAddress = await ainizeAdmin.getAddress();
-  await ainizeAdmin.deploy({
+  const ainizeHelper = new Ainize(0);
+  await ainizeHelper.login(deployerPrivKey)
+  const adminAddress = await ainizeHelper.getAddress();
+  await ainizeHelper.deploy({
     serviceName: serviceName,
     serviceUrl: serviceUrl,
     billingConfig: {
@@ -20,7 +20,7 @@ const deployService = async () => {
       costPerToken: 0,
     },
   });
-  await ainizeAdmin.logout();
+  await ainizeHelper.logout();
 }
 
 const deposit = async (amount) => {

@@ -1,7 +1,7 @@
 const { ErrorUtil } = require('./error');
 const { JOB_TYPES } = require('../constants');
 const { AinizeUtils } = require('./ainizeUtils');
-const { ainizeAdmin } = require('../ainize');
+const { ainizeHelper } = require('../ainize');
 const { REST_MODE } = require('../env');
 const { joiSchema } = require('./joi');
 
@@ -146,7 +146,7 @@ class Middleware {
       next();
       return;
     } else {
-      return ainizeAdmin.middleware.blockchainTriggerFilter(req, res, next);
+      return ainizeHelper.middleware.blockchainTriggerFilter(req, res, next);
     }
   }
 };
