@@ -1,14 +1,14 @@
 const { ErrorUtil } = require('./error');
 const { JOB_TYPES } = require('../constants');
-const { ainizeAdmin } = require('../ainize');
+const { AinizeUtils } = require('./ainizeUtils');
+const { ainizeHelper } = require('../ainize');
 const { REST_MODE } = require('../env');
 const { joiSchema } = require('./joi');
 
 class Middleware {
   static classifyJobType = (req, res, next) => {
     try {
-      const { jobType } = REST_MODE ? req.body :
-          ainizeAdmin.internal.getDataFromServiceRequest(req).requestData;
+      const { jobType } = REST_MODE ? req.body : AinizeUtils.getDataFromServiceRequest(req);
       if (!Object.values(JOB_TYPES).includes(jobType)) {
         throw ErrorUtil.setCustomError(422, `The given job type(${jobType}) is not on the list.`);
       } else {
@@ -26,8 +26,7 @@ class Middleware {
       role, content, additional_instructions,
       limit, order, after, before,
       assistantId, threadId, messageId, runId, stepId
-    } = REST_MODE ? req.body :
-        ainizeAdmin.internal.getDataFromServiceRequest(req).requestData;
+    } = REST_MODE ? req.body : AinizeUtils.getDataFromServiceRequest(req);
 
     let validationResult;
     switch (jobType) {
@@ -147,7 +146,7 @@ class Middleware {
       next();
       return;
     } else {
-      return ainizeAdmin.middleware.blockchainTriggerFilter(req, res, next);
+      return ainizeHelper.middleware.blockchainTriggerFilter(req, res, next);
     }
   }
 };

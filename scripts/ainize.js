@@ -8,10 +8,10 @@ const serviceName = process.env.SERVICE_NAME;
 const serviceUrl = process.env.SERVICE_URL;
 
 const deployService = async () => {
-  const ainizeAdmin = new Ainize(0);
-  await ainizeAdmin.login(deployerPrivKey)
-  const adminAddress = await ainizeAdmin.getAddress();
-  await ainizeAdmin.deploy({
+  const ainizeHelper = new Ainize(0);
+  await ainizeHelper.login(deployerPrivKey)
+  const adminAddress = await ainizeHelper.getAddress();
+  await ainizeHelper.deploy({
     serviceName: serviceName,
     serviceUrl: serviceUrl,
     billingConfig: {
@@ -20,7 +20,7 @@ const deployService = async () => {
       costPerToken: 0,
     },
   });
-  await ainizeAdmin.logout();
+  await ainizeHelper.logout();
 }
 
 const deposit = async (amount) => {
@@ -63,6 +63,9 @@ const processArguments = async () => {
       break;
     case 'request':
       const requestData = { jobType: 'list_assistants', limit: 2 };
+      const createThread = {
+        jobType: "create_thread"
+      };
       const retrieveData = {
         jobType: "retrieve_assistant",
         assistantId: "asst_IqEmckNBdn32eyF7qXEczTYz"
@@ -71,7 +74,7 @@ const processArguments = async () => {
         "jobType": "delete_assistant",
         "assistantId": "asst_GTOQjV4pnd9IRZ7lT0MNsr9P"
       }
-      await request(retrieveData);
+      await request(createThread);
       break;
     default:
       throw new Error(`Wrong job(${job}) has been specified. `);
