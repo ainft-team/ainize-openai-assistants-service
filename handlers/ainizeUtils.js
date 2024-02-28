@@ -16,10 +16,6 @@ class AinizeUtils {
   static handleDeposit = async (req) => {
     return await ainizeHelper.internal.handleDeposit(req);
   }
-
-  static gg = async (req) => {
-    return await ainizeHelper.
-  }
 }
 
 module.exports = {
