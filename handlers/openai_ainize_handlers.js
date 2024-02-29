@@ -89,6 +89,7 @@ class OpenaiAinizeHandler {
         throw ErrorUtil.setCustomError(response.status, response.message, response);
       }
 
+      // TODO(somebody): Need to discuss the amount below 0 when it comes to real service.
       const ainizeResponse = await AinizeUtils.handleRequest({
           req, amount: 0, ainizeStatus: AINIZE_STATUS.SUCCESS, responseData: response.data });
       if (!_.isError(ainizeResponse)) {
