@@ -90,7 +90,7 @@ class OpenaiAinizeHandler {
       }
 
       const ainizeResponse = await AinizeUtils.handleRequest({
-          req, amount: 0.1, ainizeStatus: AINIZE_STATUS.SUCCESS, responseData: response.data });
+          req, amount: 0, ainizeStatus: AINIZE_STATUS.SUCCESS, responseData: response.data });
       if (!_.isError(ainizeResponse)) {
         res.status(200).json(Utils.serializeMessage(`${jobType} ok`, response.data));
       } else {
