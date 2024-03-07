@@ -4,11 +4,13 @@ const { AinizeUtils } = require('./ainizeUtils');
 const { ainizeHelper } = require('../ainize');
 const { REST_MODE } = require('../env');
 const { joiSchema } = require('./joi');
+const { Utils } = require('./utils');
 
 class Middleware {
   static classifyJobType = (req, res, next) => {
     try {
       const { jobType } = REST_MODE ? req.body : AinizeUtils.getDataFromServiceRequest(req);
+      Utils.printVerboseMessage(`[${Date.now()}][classifyJobType] ${jobType}`);
       if (!Object.values(JOB_TYPES).includes(jobType)) {
         throw ErrorUtil.setCustomError(422, `The given job type(${jobType}) is not on the list.`);
       } else {
@@ -27,6 +29,12 @@ class Middleware {
       limit, order, after, before,
       assistantId, threadId, messageId, runId, stepId
     } = REST_MODE ? req.body : AinizeUtils.getDataFromServiceRequest(req);
+    Utils.printVerboseMessage(`[${Date.now()}][joiValidate] ${JSON.stringify({
+      jobType, model, name, description, instructions, tools, file_ids, metadata, messages,
+      role, content, additional_instructions,
+      limit, order, after, before,
+      assistantId, threadId, messageId, runId, stepId
+    }, null, 2)}`);
 
     let validationResult;
     switch (jobType) {

@@ -1,5 +1,7 @@
 const _ = require('lodash');
 
+const { VERBOSE } = require('../env');
+
 class Utils {
   static serializeMessage(status, data) {
     return { status: status, data: data };
@@ -39,6 +41,12 @@ class Utils {
   static fromArrayToObjectWithinMessageList(data) {
     data.data.forEach(v => Utils.fromArrayToObjectWithinMessageContent(v));
     data.data = { ...data.data };
+  }
+
+  static printVerboseMessage(message) {
+    if (VERBOSE) {
+      console.log(message);
+    }
   }
 }
 
