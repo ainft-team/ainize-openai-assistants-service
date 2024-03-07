@@ -20,10 +20,18 @@ if (!process.env.REST_MODE) {
   REST_MODE = true;
 }
 
+let VERBOSE;
+if (!process.env.VERBOSE) {
+  VERBOSE = false;
+} else {
+  VERBOSE = true;
+}
+
 module.exports = {
   OPENAI_API_KEY,
   AINIZE_PRIVATE_KEY,
   REST_MODE,
+  VERBOSE,
   SLACK_WEBHOOK_TOKEN,
   SLACK_CHANNEL_NAME
 };
