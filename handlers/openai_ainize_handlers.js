@@ -77,22 +77,26 @@ class OpenaiAinizeHandler {
         model, name, description, instructions, metadata, role, content, assistantId
       });
       const requestBody = (getRequestBodyFunction && getRequestBodyFunction(requestBodyFromUserInput));
+      Utils.printVerboseMessage(`[${Date.now()}][service] 1. retrieve done`);
       const response = await callOpenai({
         method: requestMethod,
         url: requestUrl + (query ? query : ''),
         ...(requestBody && { body: requestBody })   // FIXME(minsu): cannot send empty [], {} body
       });
+      Utils.printVerboseMessage(`[${Date.now()}][service] 2. call openai done`);
 
       if (response?.status === 200) {
         OpenaiAinizeHandler._postProcessFinalResponseData(jobType, response.data);
       } else {
         throw ErrorUtil.setCustomError(response.status, response.message, response);
       }
+      Utils.printVerboseMessage(`[${Date.now()}][service] 3. postprocess response done`);
 
       // TODO(somebody): Need to discuss the amount below 0 when it comes to real service.
       const ainizeResponse = await AinizeUtils.handleRequest({
           req, amount: 0, ainizeStatus: AINIZE_STATUS.SUCCESS, responseData: response.data });
       if (!_.isError(ainizeResponse)) {
+        Utils.printVerboseMessage(`[${Date.now()}][service] 4. ainize done`);
         res.status(200).json(Utils.serializeMessage(`${jobType} ok`, response.data));
       } else {
         throw ErrorUtil.setCustomError(500, ainizeResponse.message, ainizeResponse);
@@ -105,6 +109,7 @@ class OpenaiAinizeHandler {
   static deposit = async (req, res, next) => {
     try {
       const result = await AinizeUtils.handleDeposit(req);
+      Utils.printVerboseMessage(`[${Date.now()}][deposit] deposit done`);
       res.status(200).json(Utils.serializeMessage('deposit ok', result));
     } catch (error) {
       next(ErrorUtil.setCustomError(500, error.message));
