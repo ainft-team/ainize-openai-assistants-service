@@ -154,7 +154,8 @@ class Middleware {
       next();
       return;
     } else {
-      Utils.printVerboseMessage(`[${Date.now()}][preventMultipleTriggering] ${JSON.stringify(JSON.parse(req), null, 2)}`);
+      Utils.printVerboseMessage(`[${Date.now()}][preventMultipleTriggering] `);
+      Utils.printVerboseMessage(req);
       return ainizeHelper.middleware.blockchainTriggerFilter(req, res, next);
     }
   }
