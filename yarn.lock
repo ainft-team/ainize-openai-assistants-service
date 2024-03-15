@@ -47,7 +47,7 @@
     uuid "^3.3.3"
     varuint-bitcoin "^1.1.0"
 
-"@ainize-team/ainize-js@^1.1.0":
+"@ainize-team/ainize-js@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@ainize-team/ainize-js/-/ainize-js-1.1.1.tgz#63c675bc63a85f2321283aeb83f01cc023ba1662"
   integrity sha512-BS7aKB4Gq0dHk2b5KP30UaJf1QzkexYY28lsy6SB3A/063EA1dXgIG6xcBipxeETCFXSnpPMx9Eh1kUTBakKJg==
