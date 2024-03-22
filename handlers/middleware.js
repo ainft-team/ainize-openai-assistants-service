@@ -150,11 +150,17 @@ class Middleware {
   };
 
   static preventMultipleTriggering = (req, res, next) => {
-    if (REST_MODE) {
-      next();
-      return;
-    } else {
-      return ainizeHelper.middleware.blockchainTriggerFilter(req, res, next);
+    Utils.printVerboseMessage(`[${Date.now()}][preventMultipleTriggering] into preventMultipleTriggering`);
+    try {
+      if (REST_MODE) {
+        Utils.printVerboseMessage(`[${Date.now()}][preventMultipleTriggering] ignored`);
+        next();
+        return;
+      } else {
+        return ainizeHelper.middleware.blockchainTriggerFilter(req, res, next);
+      }
+    } catch (error) {
+      throw ErrorUtil.setCustomError(500, `preventMultipleTriggering error.`, JSON.stringify(error));
     }
   }
 };
