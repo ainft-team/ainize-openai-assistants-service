@@ -8,6 +8,8 @@ describe("Openai_url_builder", () => {
   const MOCK_ASSISTANT_ID = 'assistantId';
   const MOCK_THREAD_ID = 'threadId';
   const MOCK_MESSAGE_ID = 'messageId';
+  const MOCK_RUN_ID = 'runId';
+  const MOCK_STEP_ID = 'stepId';
   
   describe("assistantBaseUrl()", () => {
     it("generates assistant base url without path", () => {
@@ -49,6 +51,54 @@ describe("Openai_url_builder", () => {
         messageId: MOCK_MESSAGE_ID
       }))
       .to.be.equal(`${OPENAI_ENDPOINT}/threads/${MOCK_THREAD_ID}/messages/${MOCK_MESSAGE_ID}`);
+    });
+  });
+
+  describe("runBaseUrl()", () => {
+    it("generates thread base url with run path", () => {
+      expect(OpenaiUrlBuilder.runBaseUrl({ threadId: MOCK_THREAD_ID }))
+      .to.be.equal(`${OPENAI_ENDPOINT}/threads/${MOCK_THREAD_ID}/runs`);
+    });
+  });
+
+  describe("runBaseUrlWithRunIdUrl()", () => {
+    it("generates thread and run base url with run id path", () => {
+      expect(OpenaiUrlBuilder.runBaseUrlWithRunIdUrl({
+        threadId: MOCK_THREAD_ID,
+        runId: MOCK_RUN_ID
+      }))
+      .to.be.equal(`${OPENAI_ENDPOINT}/threads/${MOCK_THREAD_ID}/runs/${MOCK_RUN_ID}`);
+    });
+  });
+
+  describe("runBaseUrlWithRunIdStepsUrl()", () => {
+    it("generates thread and run base url with step path", () => {
+      expect(OpenaiUrlBuilder.runBaseUrlWithRunIdStepsUrl({
+        threadId: MOCK_THREAD_ID,
+        runId: MOCK_RUN_ID
+      }))
+      .to.be.equal(`${OPENAI_ENDPOINT}/threads/${MOCK_THREAD_ID}/runs/${MOCK_RUN_ID}/steps`);
+    });
+  });
+
+  describe("runBaseUrlWithRunIdStepIdUrl()", () => {
+    it("generates thread, run and step base url with step id path", () => {
+      expect(OpenaiUrlBuilder.runBaseUrlWithRunIdStepIdUrl({
+        threadId: MOCK_THREAD_ID,
+        runId: MOCK_RUN_ID,
+        stepId: MOCK_STEP_ID
+      }))
+      .to.be.equal(`${OPENAI_ENDPOINT}/threads/${MOCK_THREAD_ID}/runs/${MOCK_RUN_ID}/steps/${MOCK_STEP_ID}`);
+    });
+  });
+
+  describe("runBaseUrlWithRunIdCancelUrl()", () => {
+    it("generates thread and run base url with cancel path", () => {
+      expect(OpenaiUrlBuilder.runBaseUrlWithRunIdCancelUrl({
+        threadId: MOCK_THREAD_ID,
+        runId: MOCK_RUN_ID
+      }))
+      .to.be.equal(`${OPENAI_ENDPOINT}/threads/${MOCK_THREAD_ID}/runs/${MOCK_RUN_ID}/cancel`);
     });
   });
 });
