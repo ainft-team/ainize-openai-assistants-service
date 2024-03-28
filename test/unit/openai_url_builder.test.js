@@ -13,7 +13,7 @@ describe("Openai_url_builder", () => {
   
   describe("assistantBaseUrl()", () => {
     it("generates assistant base url without path", () => {
-      expect(OpenaiUrlBuilder.assistantBaseUrl({})).to.be.equal(`${OPENAI_ENDPOINT}/assistants`)
+      expect(OpenaiUrlBuilder.assistantBaseUrl({})).to.be.equal(`${OPENAI_ENDPOINT}/assistants`);
     });
   });
 
